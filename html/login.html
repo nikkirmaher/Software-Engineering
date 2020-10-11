@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" content="width=device-width, initial-scale=1">
+<title>login</title>
+<link href="login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<main id="main-holder">
+		<div id="image-holder">
+			<img src="Capture.PNG" alt="logo">
+		</div>
+		<form id="login-form" method="post">
+			<input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+			<input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">				<br>
+			<input type="submit" value="Login" name="login" id="login-form-submit">		
+		</form>
+			
+		<div id="login-error-msg-holder">
+			<p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+		</div>
+			
+		<span class="psw">Forgot <a href="#">password?</a></span>	
+	</main>
+</body>
+</html>
