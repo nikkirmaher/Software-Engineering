@@ -34,7 +34,7 @@
                     $username = $_POST['username'];
                     $password = $_POST['password'];
 
-                    $sql = "SELECT * FROM `user_data` WHERE `email` = '$username' AND `password` = '$password'";
+                    $sql = "SELECT * FROM `user_data` WHERE `username` = '$username' AND `password` = '$password'";
                     $result = mysqli_query($dbconn, $sql);
                     $row = mysqli_fetch_assoc($result);
                     $count = mysqli_num_rows($result);
@@ -42,7 +42,7 @@
                     if($count == 1) {
                         //Validate user credentials.
                         $_SESSION['loggedIn'] = true;
-                        header("Location: dashboard.php");
+                        header("Location: home.php");
                     }
                     else {
                         echo('<div class="login-error-msg">Invalid Username/Password.</div>');
