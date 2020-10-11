@@ -19,7 +19,6 @@ body
 .header
 {
 	display: inline-block;
-	float: left;
 	padding: 14px 16px;
 	margin-bottom: auto;
 	margin-right: auto;
@@ -65,13 +64,14 @@ body
 {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  color: #013e7f;
+  color: white;
+  background-color: orange;
   display: block;
 }
 
 .leftnav a:hover 
 {
-  color: #f58426;
+  background-color: orangered;
   cursor: pointer;
 }
 

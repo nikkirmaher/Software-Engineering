@@ -19,11 +19,18 @@ body
 .header
 {
 	display: inline-block;
-	float: left;
 	padding: 14px 16px;
 	margin-bottom: auto;
 	margin-right: auto;
 	align-content: center;
+}
+
+.title
+{
+	display: inline-block;
+	color: white;
+	font-weight: bolder;
+	font-size: 25px;
 }
 
 .button
@@ -36,4 +43,44 @@ body
 	color: white;
 	background-color: #f58426;
 	cursor: pointer;
+}
+
+.leftnav
+{
+	height: 100%;
+	width: 180px;
+	position: fixed;
+	background-color: white;	
+	margin-top: 100px;
+}
+
+.leftnav a 
+{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  color: white;
+  background-color: orange;
+  display: block;
+}
+
+.leftnav a:hover 
+{
+  background-color: orangered;
+  cursor: pointer;
+}
+
+.leftnav a.active {
+  background-color: #f58426;
+  color: white;
+}
+
+.content {
+  margin-left: 180px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+  background-color: white;
+}
+
+#content {
+  transition: margin-left .5s;
+  padding: 20px;
 }
