@@ -12,46 +12,25 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Course Scheduler - Search</title>
+		<!-- Link for our main style sheet -->
 		<link href="./css/search.css" rel="stylesheet" type="text/css">
+		<!-- Link for font awesome icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 	</head>
 
-<body>
-	<!-- Header -->
-	<?php include_once('./html/header.html') ?>
-	<!-- Navigation bar -->
-	<?php include_once('./components/navbar.php') ?>
+	<body>
+		<!-- Header -->
+		<?php include_once('./html/header.html') ?>
+		<!-- Navigation bar -->
+		<?php include_once('./components/navbar.php') ?>
 
-	<div class="searches">
-		<p class = "title"> Search User </p>
-		<form name="search-user" method="get" action="...">
-			<input type="text" placeholder="Enter User Here.." name="search-user">
-			<button id="submitUser" type="submit"><i class="fa fa-search"></i></button>
-		</form>
-
-		<p class = "title"> Search Building </p>
-		<form name="search-building" method="get" action="...">
-			<input type="text" placeholder="Enter Building Here.." name="search-building">
-			<button id="submitBuilding" type="submit"><i class="fa fa-search"></i></button>
-		</form>
-
-		<p class = "title"> Search Instructor </p>
-		<form name="search-instructor" method="get" action="...">
-			<input type="text" placeholder="Enter Instructor Here.." name="search-instructor">
-			<button id="submitInstructor" type="submit"><i class="fa fa-search"></i></button>
-		</form>
-			
-		<p class = "title"> Search Room </p>
-		<form name="search-room" method="get" action="...">
-			<input type="text" placeholder="Enter Room Here.." name="search-room">
-			<button id="submitRoom" type="submit"><i class="fa fa-search"></i></button>
-		</form>
-	
-		<p class = "title"> Search Course </p>
-		<form name="search-course" method="get" action="...">
-			<input type="text" placeholder="Enter Course Here.." name="search-course">
-			<button id="submitCourse" type="submit"><i class="fa fa-search"></i></button>
-		</form>
-	</div>
-</body>
-	
+		<!-- Main Content -->
+		<div class="searches">
+			<?php include_once('./components/search/userSearch.php') ?>
+			<?php include_once('./components/search/instructorSearch.php') ?>
+			<?php include_once('./components/search/courseSearch.php') ?>
+			<?php include_once('./components/search/buildingSearch.php') ?>
+			<?php include_once('./components/search/roomSearch.php') ?>
+		</div>
+	</body>
 </html>
