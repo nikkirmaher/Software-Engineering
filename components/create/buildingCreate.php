@@ -1,13 +1,10 @@
-<p class = "title"> Create User </p>
-<form name="search-user" method="get" action="...">
-    <input type="text" placeholder="Enter User Here.." name="search-user">
-    <button id="submitUser" type="submit"><i class="fa fa-search"></i></button>
-</form>
-
-//I am not quite sure for top bc of building
-
 <p class = "title"> Create Building </p>
-<form name="search-building" method="get" action="...">
-    <input type="text" placeholder="Enter Building Here.." name="search-building">
-    <button id="submitBuilding" type="submit"><i class="fa fa-search"></i></button>
+<form name="create-building" method="get" action="...">
+    <label id="create" for="create-building"> Building Name: </label> 
+	<input type="text" placeholder="Enter Building Name Here.." name="create-building-name">
+	<br>
+	<label id="create" for="create-building"> Building Abbreviation: </label> 
+    <input type="text" placeholder="Enter Building Abbreviation Here.." name="create-building-abbreviation">
+    <br>
+	<input id="submit" type="submit" name="submit">
 </form>
