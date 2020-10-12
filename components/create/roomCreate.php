@@ -8,7 +8,7 @@
    
         <?php
         //If submit button is pressed.
-        if (isset($_GET['addBuilding'])) 
+        if (isset($_GET['addRoom'])) 
         {
             include_once(" ./backend/db_connector.php");
             
