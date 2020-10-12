@@ -25,6 +25,21 @@
 	<br>
 	<br>
 	<br>
+	
+	<label id="add" for="create-course"> Does this course have a requisite of a future course? </label>
+	<br>
+	<br>
+	
+	<input type="radio" id="has_requisite" name="has_requisite" value="Has Requisite">
+	<label for="has_requisite">Yes</label>
+	<br>
+	<br>
+
+  	<input type="radio" id="no_requisite" name="has_requisite" value="No Requisite">
+  	<label for="no_requisite">No</label><br>	
+	<br>
+	<br>
+	<br>
 
 	<label id="add" for="create-course"> Is this course a co-requisite? </label>
 	<br>
