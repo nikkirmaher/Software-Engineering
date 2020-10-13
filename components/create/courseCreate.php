@@ -1,16 +1,21 @@
-<<<<<<< HEAD
 <div id="courseCreate">
     <p class = "title"> Create Course </p>
-    <form name="search-course" method="get" action="./create.php">
+	<form name="search-course" method="get" action="./create.php">
+		<label id="add" for="create-course"> Course Short Name: </label> 
+		<input type="text" placeholder="Enter course short name here..." name="course-shortname">
+		<br>
+
         <input type="text" placeholder="Enter Course Here.." name="search-course">
-        <button id="submitCourse" type="submit"><i class="fa fa-search"></i></button>
-    </form>
+		<button id="submitCourse" type="submit"><i class="fa fa-search"></i></button>
+		
+		<input id="submit" type="submit" name="addCourse">
+	</form>
 
         <?php
         //If submit button is pressed.
         if (isset($_GET['addCourse'])) 
         {
-            include_once(" ./backend/db_connector.php");
+            include_once("./backend/db_connector.php");
             
             $name = $_GET['name'];
             $short_name = $_GET['short_name'];
@@ -23,26 +28,20 @@
             $semester = $_GET['semester'];
             $year = $_GET['year'];
 
-            $sql = "INSERT INTO courses (name, short_name, is_requisite, has_requisite, co_requisite, is_alive, program, num_credits, semester, year)
-                    VALUES ($name, $short_name, $is_requisite, $has_requisite, $co_requisite, $is_alive, $program, $num_credits, $semester, $year)";
+            $sql = "INSERT INTO courses (`name`, `short_name`, `is_requisite`, `has_requisite`, `co_requisite`, `is_alive`, `program`, `num_credits`, `semester`, `year`)
+                    VALUES ('$name', '$short_name', '$is_requisite', '$has_requisite', '$co_requisite', '$is_alive', '$program', '$num_credits', '$semester', '$year')";
 
 
-            if ($conn->query($sql) === TRUE) {
+            if ($dbconn->query($sql) === TRUE) {
                 echo "New record created successfully";
               } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
               }
-              $conn->close();
+              $dbconn->close();
         }
         ?>
-</div>
-=======
-<p class = "title"> Create Course </p>
-<form name="create-course" method="get" action="...">
+	
 
-	<label id="add" for="create-course"> Course Name: </label> 
-	<input type="text" placeholder="Enter course name here..." name="course-name">
-	<br>
 	<br>
 
 	<label id="add" for="create-course"> Course Short Name: </label> 
@@ -155,6 +154,4 @@
 	<br>
 
 
-    <input id="submit" type="submit" name="submit">
-</form>
->>>>>>> e65d9d90845aa831c63ef457965e64181ccc7424
+    
