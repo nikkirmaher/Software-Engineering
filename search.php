@@ -22,7 +22,7 @@
 		<?php include_once('./components/navbar.php') ?>
 
 		<!-- Main Content -->
-		<div class="searches">
+		<div class="content">
 			<?php include_once('./components/search/userSearch.php') ?>
 			<?php include_once('./components/search/instructorSearch.php') ?>
 			<?php include_once('./components/search/courseSearch.php') ?>
