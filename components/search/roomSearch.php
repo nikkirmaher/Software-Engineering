@@ -1,10 +1,22 @@
 <div id="roomSearch">
-	<p class = "title"> Search Room </p>
+	<h2>Search Room</h2>
 	<form name="search-room" method="get" action="...">
 		<input type="text" placeholder="Enter Room Here.." name="search-room">
 		<button id="submitRoom" type="submit"><i class="fa fa-search"></i></button>
 	</form>
 
+	<table>
+	<tr>
+		<th>RID</th>
+		<th>BID</th> 
+		<th>Building Name</th>
+		<th>Room Number</th>
+		<th>Room Short Name</th> 
+		<th>Required?</th>
+		<th>Maximum Seats</th>
+		<th>Action</th>
+	</tr>
+	
 	<?php 
 		include_once("./backend/db_connector.php");
 
@@ -30,4 +42,5 @@
 		<td>Edit</td>
 	</tr>
 	<?php } ?>
+	</table>
 </div>

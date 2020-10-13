@@ -15,17 +15,17 @@
 		<link href="./css/scheduler.css" rel="stylesheet" type="text/css">
 	</head>
 
-<body>
-	<!-- Header -->
-	<?php include_once('./html/header.html') ?>
-	<!-- Navigation bar -->
-	<?php include_once('./components/sidebar.php') ?>
+	<body>
+		<!-- Header -->
+		<?php include_once('./html/header.html') ?>
+		<!-- Navigation bar -->
+		<?php include_once('./components/sidebar.php') ?>
 
-	<div class="content">
-		<?php include_once('./components/create/buildingCreate.php') ?>
-		<?php include_once('./components/create/courseCreate.php') ?>
-		<?php include_once('./components/create/instructorCreate.php') ?>
-		<?php include_once('./components/create/roomCreate.php') ?>
-	</div>
-</body>
+		<div class="content">
+			<?php include_once('./components/create/buildingCreate.php') ?>
+			<?php include_once('./components/create/courseCreate.php') ?>
+			<?php include_once('./components/create/instructorCreate.php') ?>
+			<?php include_once('./components/create/roomCreate.php') ?>
+		</div>
+	</body>
 </html>

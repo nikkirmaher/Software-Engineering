@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /* Generic Page Layout */
 html
 {
@@ -105,7 +104,7 @@ body
   margin-left: 200px; /* Same as the width of the sidebar */
   margin-top: 90px; /* Same as the height of the header */
   padding: 10px;
-  position: fixed;
+  display: inline-table;
 }
 
 .title
@@ -117,5 +116,3 @@ body
 	font-weight: bold;
 	font-size: 30px;
 }
-
-

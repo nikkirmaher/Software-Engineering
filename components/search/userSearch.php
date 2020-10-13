@@ -1,5 +1,5 @@
 <div id="userSearch">
-    <p class="title"> Search User </p>
+    <h2>Search User</h2>
     <form name="search-user" method="get" action=".">
         <input id="userInput" type="text" placeholder="Enter User Here.."></input>
         <button id="submitUser" type="submit"><i class="fa fa-search"></i></button>
