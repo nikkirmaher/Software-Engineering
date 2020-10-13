@@ -9,24 +9,26 @@
         <br>
         <input id="submit" type="submit" name="addBuilding">
     </form>
-</div>
+    
+        </div>
+        <?php
+        //If submit button is pressed.
+        if (isset($_GET['addBuilding'])) 
+        {
+            include_once("./backend/db_connector.php");
+            
+            $building_name = $_GET['create-building-name'];
+            $building_abbreviation = $_GET['create-building-abbreviation'];
+           
+            $sql = "INSERT INTO `buildings` (`building_name`, `building_abbreviation`) 
+                VALUES ('$building_name', '$building_abbreviation')";
 
-<?php
-	//If submit button is pressed.
-	if (isset($_GET['addBuilding'])) 
-	{
-		include_once('./backend/db_connector.php');
-		
-		$building_name = $_GET['create-building-name'];
-		$building_abbreviation = $_GET['create-building-abbreviation'];
-	
-		$sql = "INSERT INTO `buildings` (`building_name`, `building_abbreviation`) VALUES ('$building_name', '$building_abbreviation')";
 
-		if ($dbconn->query($sql) === TRUE) {
-			echo "New record created successfully";
-		} else {
-			echo "Error: " . $sql . "<br>" . $dbconn->error;
-		}
-		$dbconn->close();
-	}
-?>
+            if ($dbconn->query($sql) === TRUE) {
+                echo "New record created successfully";
+              } else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+              }
+              $dbconn->close();
+        }
+        ?>
