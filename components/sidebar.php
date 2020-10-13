@@ -6,7 +6,7 @@
     <a class="navlink" href="./search.php">Search</a>
     <a class="navlink" href="./schedule.php">Schedule</a>
     <br>
-    <form class="logout-form" method="get">
+    <form class="logout-form" method="get" action="./logout.php">
         <input name="button" type="submit" class="logout-button" value="Logout">
     </form>
 </div>

@@ -19,7 +19,7 @@
 	<!-- Header -->
 	<?php include_once('./html/header.html') ?>
 	<!-- Navigation bar -->
-	<?php include_once('./components/navbar.php') ?>
+	<?php include_once('./components/sidebar.php') ?>
 
 	<div class="content">
 		<?php include_once('./components/create/buildingCreate.php') ?>
