@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /* Generic Page Layout */
 html
 {
@@ -17,6 +16,17 @@ body
   	background-color: #f58426;
 }
 
+table {
+	border-collapse: collapse;
+	background-color: navajowhite;
+}
+table, th, td {
+	border: 1px solid black;
+}
+th {
+	background-color: #013e7f;
+	color: white;
+}
 
 /* Fixed Header */
 .header
@@ -47,11 +57,9 @@ body
 /* Fixed Side Bar */
 .logout-button
 {
-	position: fixed;
-	left: 80px;
-	display: inline-block;
-	width: 8%;
-  	padding: 7px;
+	width: 100%;
+	padding: 7px;
+	margin-left: 50px;  
 	color: white;
 	font-size: 14px;
 	background-color: #013e7f;
@@ -70,7 +78,7 @@ body
 {
 	margin-top: 90px;
 	height: 100%;
-	width: 253px;
+	width: 200px;
 	position: fixed;
 	background-color: white;
 }
@@ -104,8 +112,10 @@ body
 /* Content area, changes depending on active navlink */
 .content 
 {
-  margin-left: 253px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+  margin-left: 200px; /* Same as the width of the sidebar */
+  margin-top: 90px; /* Same as the height of the header */
+  padding: 10px;
+  display: inline-table;
 }
 
 .title
@@ -116,21 +126,4 @@ body
     text-align: center;
 	font-weight: bold;
 	font-size: 30px;
-}
-
-table
-{
-	border-collapse: collapse;
-	background-color: navajowhite;
-}
-
-table, th, td
-{
-	border: 1px solid black;
-}
-
-th
-{
-	background-color: #013e7f;
-	color: white;
 }
