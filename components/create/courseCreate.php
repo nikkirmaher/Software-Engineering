@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div id="courseCreate">
     <p class = "title"> Create Course </p>
     <form name="search-course" method="get" action="./create.php">
@@ -36,7 +35,6 @@
         }
         ?>
 </div>
-=======
 <p class = "title"> Create Course </p>
 <form name="create-course" method="get" action="...">
 
@@ -157,4 +155,3 @@
 
     <input id="submit" type="submit" name="submit">
 </form>
->>>>>>> e65d9d90845aa831c63ef457965e64181ccc7424

@@ -12,7 +12,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Course Scheduler - Create</title>
-		<link href="./css/search.css" rel="stylesheet" type="text/css">
+		<link href="./css/scheduler.css" rel="stylesheet" type="text/css">
 	</head>
 
 <body>

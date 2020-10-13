@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div id="instructorCreate">
     <p class = "title"> Create Instructor </p>
     <form name="search-instructor" method="get" action="./create.php">
@@ -22,7 +21,6 @@
             $sql = "INSERT INTO faculty (email, fname, lname, max_credits, min_credits, program)
                     VALUES ($email, $fname, $lname, $max_credits, $min_credits, $program)";
 
-
             if ($conn->query($sql) === TRUE) {
                 echo "New record created successfully";
             } else {
@@ -32,7 +30,6 @@
         }
         ?>
 </div>
-=======
 <p class = "title"> Create Instructor </p>
 <form name="create-instructor" method="get" action="...">
 	<label id="add" for="create-instructor"> Instructor Email: </label> 
@@ -65,4 +62,3 @@
 
     <input id="submit" type="submit" name="submit">
 </form>
->>>>>>> e65d9d90845aa831c63ef457965e64181ccc7424
