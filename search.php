@@ -18,7 +18,6 @@
 	<body>
 		<!-- Header -->
 		<?php include_once('./html/header.html') ?>
-		
 		<!-- Navigation bar -->
 		<?php include_once('./components/sidebar.php') ?>
 
