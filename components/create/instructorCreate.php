@@ -48,7 +48,6 @@
             $sql = "INSERT INTO faculty (`email`, `fname`, `lname`, `max_credits`, `min_credits`, `program`)
                     VALUES ('$email', '$fname', '$lname', '$max_credits', '$min_credits', '$program')";
 
-
             if ($dbconn->query($sql) === TRUE) {
                 echo "New record created successfully";
             } else {

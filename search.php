@@ -1,11 +1,8 @@
 <?php
-  //Starting a session.
-  if(!isset($_SESSION)) {
-    session_start();
-  }
-  if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-    //header("Location: dashboard.php");
-  }
+	//Starting a session.
+	if(!isset($_SESSION)) {
+		session_start();
+	}
 ?>
 
 <html>
@@ -13,7 +10,7 @@
 		<meta charset="UTF-8">
 		<title>Course Scheduler - Search</title>
 		<!-- Link for our main style sheet -->
-		<link href="./css/search.css" rel="stylesheet" type="text/css">
+		<link href="./css/scheduler.css" rel="stylesheet" type="text/css">
 		<!-- Link for font awesome icons -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 	</head>
@@ -25,7 +22,7 @@
 		<?php include_once('./components/navbar.php') ?>
 
 		<!-- Main Content -->
-		<div class="searches">
+		<div class="content">
 			<?php include_once('./components/search/userSearch.php') ?>
 			<?php include_once('./components/search/instructorSearch.php') ?>
 			<?php include_once('./components/search/courseSearch.php') ?>

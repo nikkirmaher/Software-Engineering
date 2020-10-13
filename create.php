@@ -12,7 +12,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Course Scheduler - Create</title>
-		<link href="./css/search.css" rel="stylesheet" type="text/css">
+		<link href="./css/scheduler.css" rel="stylesheet" type="text/css">
 	</head>
 
 <body>
@@ -21,11 +21,11 @@
 	<!-- Navigation bar -->
 	<?php include_once('./components/navbar.php') ?>
 
-	<div class="create">
-			<?php include_once('./components/create/buildingCreate.php') ?>
-			<?php include_once('./components/create/courseCreate.php') ?>
-			<?php include_once('./components/create/instructorCreate.php') ?>
-			<?php include_once('./components/create/roomCreate.php') ?>
+	<div class="content">
+		<?php include_once('./components/create/buildingCreate.php') ?>
+		<?php include_once('./components/create/courseCreate.php') ?>
+		<?php include_once('./components/create/instructorCreate.php') ?>
+		<?php include_once('./components/create/roomCreate.php') ?>
 	</div>
 </body>
 </html>

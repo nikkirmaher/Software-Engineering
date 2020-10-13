@@ -40,7 +40,9 @@
               $dbconn->close();
         }
         ?>
-	
+</div>
+<p class = "title"> Create Course </p>
+<form name="create-course" method="get" action="...">
 
 	<br>
 
@@ -154,4 +156,5 @@
 	<br>
 
 
-    
+    <input id="submit" type="submit" name="submit">
+</form>
