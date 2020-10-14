@@ -2,14 +2,15 @@
     <p class = "title"> Create Room </p>
     <form name="create-room" method="get" action="./create.php">
 		 <label id="add" for="create-room"> Select Building: </label>
-		 
+		 <input type="text" placeholder="Enter room here..." name="select-building">
 		 <br>
+
 	 	 <label id="add" for="create-room"> Enter Room Number: </label>
-	 	 <input type="text" id="room_num" name="Room Number">
+	 	 <input type="text" id="room_num" name="room-number">
 		 <br>
 		 
 		 <label id="add" for="create-room"> Enter Room Short Name: </label>
-		 <input type="text" id="room_short" name="Room Short Name">
+		 <input type="text" id="room_short" name="room-short-name">
 		 <br>
 
 		 <label id="add" for="create-room"> Is this for a required course? </label>
@@ -33,9 +34,9 @@
         {
             include_once("./backend/db_connector.php");
             
-            $building = $_GET['Select Building'];
-            $room_num = $_GET['Room Number'];
-            $short_name = $_GET['Room Short Name'];
+            $building = $_GET['select-building'];
+            $room_num = $_GET['room-number'];
+            $short_name = $_GET['room-short-name'];
             $is_required = $_GET['is_req'];
             $max_seats = $_GET['Max_seats'];
 
