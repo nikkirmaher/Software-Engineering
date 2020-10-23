@@ -1,0 +1,53 @@
+<p class = "title"> <strong>Course Scheduler </strong> </p>
+	<form name="create-course" method="get" action="...">	
+		<label id="scheduler" for="course-scheduler"> <strong>Semester:</strong> </label>
+		<br>
+		<input type="radio" id="fall" name="semester" value="fall">
+		<label for="fall">Fall</label>
+		<br>
+		<input type="radio" id="spring" name="semester" value="spring">
+		<label for="spring">Spring</label>
+		<br>
+		<input type="radio" id="summer" name="semester" value="summer">
+		<label for="summer">Summer</label>
+		<br>
+		<input type="radio" id="winter" name="semester" value="winter">
+		<label for="winter">Winter</label>
+		<br>
+		<br>
+		
+		<label for="course-dates"> <strong> Course Dates: </strong> </label><br>		
+		  <input type="checkbox" id="monday" name="dates" value="Monday">
+		  <label for="Monday"> Monday</label><br>
+		  <input type="checkbox" id="Tuesday" name="dates" value="Tuesday">
+		  <label for="Tuesday"> Tuesday</label><br>
+		  <input type="checkbox" id="Wednesday" name="dates" value="Wednesday">
+		  <label for="Wednesday"> Wednesday</label><br>
+		  <input type="checkbox" id="Thursday" name="dates" value="Thursday">
+		  <label for="Thursday">Thursday</label><br>
+		  <input type="checkbox" id="Friday" name="dates" value="Friday">
+		  <label for="Friday"> Friday</label>
+	  <br><br>
+	  
+	  <label for="start-time"> <strong> Course Start Time: </strong></label>
+	  <input type="time" id="course-start" name="course-start">
+	  <br><br>
+	  
+	  <label for="end-time"> <strong>Course End Time: </strong> </label>
+	  <input type="time" id="course-end" name="course-end">
+	  <br><br>
+
+		<label for="course-days"> <strong>Class Time Preference: </strong></label><br>		
+		  <input type="radio" id="morning" name="time-preference" value="morning">
+		  <label for="morning"> Morning</label><br>
+		  <input type="radio" id="afternoon" name="time-preference" value="afternoon">
+		  <label for="afternoon"> Afternoon</label><br>
+		  <input type="radio" id="evening" name="time-preference" value="evening">
+		  <label for="evening"> Evening</label><br><br>
+	  
+	  <label for="times"> <strong>Course Padding (in minutes): </strong> </label>
+	  <input type="number" id="padding" name="padding" step="5">
+	  <br><br>
+	  
+	  <input type="submit" value="Submit">	
+	</form>
