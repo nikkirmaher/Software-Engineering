@@ -25,10 +25,33 @@
 		<?php include_once('./components/sidebar.php') ?>
 
 		<div class="content">
-			<?php include_once('./components/create/buildingCreate.php') ?>
-			<?php include_once('./components/create/courseCreate.php') ?>
-			<?php include_once('./components/create/instructorCreate.php') ?>
-			<?php include_once('./components/create/roomCreate.php') ?>
+			<!-- List of available Creates -->
+			<div>
+				<a href="./create.php?createType=user">User</a>
+				<a href="./create.php?createType=instructor">Instructor</a>
+				<a href="./create.php?createType=course">Course</a>
+				<a href="./create.php?createType=building">Building</a>
+				<a href="./create.php?createType=room">Room</a>
+			</div>
+			<?php 
+				if(isset($_GET['createType'])) {
+					if($_GET['createType'] == 'user') {
+						include_once('./components/create/userCreate.php');
+					}
+					else if($_GET['createType'] == 'instructor') {
+						include_once('./components/create/instructorCreate.php');
+					}
+					else if($_GET['createType'] == 'course') {
+						include_once('./components/create/courseCreate.php');
+					}
+					else if($_GET['createType'] == 'building') {
+						include_once('./components/create/buildingCreate.php');
+					}
+					else if($_GET['createType'] == 'room') {
+						include_once('./components/create/roomCreate.php');
+					}
+				} 
+			?>
 		</div>
 	</body>
 </html>
