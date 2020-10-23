@@ -35,6 +35,12 @@
                     <option value="winter">Winter</option>
                 </select>
                 <br><br>
+                
+                <label for="year">Year:</label>
+                <br>
+                <input type="text"></input>
+                <br><br>
+                
                 <table>
                     <tr>
                         <th>Days</th>
