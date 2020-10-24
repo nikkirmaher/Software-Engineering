@@ -38,15 +38,16 @@
         if (isset($_GET['editBuilding'])) 
         {
             include_once("./backend/db_connector.php");
-            
+			
+			$bID = $_GET['edit_building'];
             $building_name = $_GET['update-building-name'];
             $building_abbreviation = $_GET['update-building-abbreviation'];
 		   
 			//SQL Update Statement for buildingSearch form
-			$sql = "UPDATE `buildings` (`building_name`, `building_abbreviation`)
-                SET update-building-name = '$building_name', 
-					update-building-abbreviation = '$building_abbreviation';
-				WHERE id=editBuilding";
+			$sql = "UPDATE `buildings` 
+                SET building_name = '$building_name', 
+					building_abbreviation = '$building_abbreviation';
+				WHERE id=$bID";
 
             if ($dbconn->query($sql) === TRUE) {
                 echo "New record edited successfully";

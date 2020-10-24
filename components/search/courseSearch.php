@@ -62,7 +62,8 @@
         if (isset($_GET['editCourse'])) 
         {
             include_once("./backend/db_connector.php");
-            
+			
+			$cID = $_GET['editCourse'];
             $name = $_GET['course-name'];
             $short_name = $_GET['course-shortname'];
             $is_requisite = $_GET['is_requisite'];
@@ -75,18 +76,18 @@
             $year = $_GET['course-year'];
 
 			//SQL Update Statement for courseSearch form
-            $sql = "UPDATE `courses` (`name`, `short_name`, `is_requisite`, `has_requisite`, `co_requisite`, `is_alive`, `program`, `num_credits`, `semester`, `year`)
-                    SET  course-name = $name, 
-						 course-shortname = '$short_name', 
+            $sql = "UPDATE `courses` 
+                    SET  name = '$name', 
+						 short_name = '$short_name', 
 						 is_requisite = '$is_requisite', 
 						 has_requisite = '$has_requisite', 
 						 co_requisite = '$co_requisite', 
-						 alive = '$is_alive', 
+						 is_alive = '$is_alive', 
 						 program = '$program', 
 						 num_credits = '$num_credits', 
 						 semester = '$semester', 
-						 course-year = '$year';
-					WHERE id=editCourse";
+						 year = '$year';
+					WHERE id=$cID";
 
 
             if ($dbconn->query($sql) === TRUE) {

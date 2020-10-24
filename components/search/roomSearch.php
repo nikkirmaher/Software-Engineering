@@ -50,7 +50,8 @@
         if (isset($_GET['editRoom'])) 
         {
             include_once("./backend/db_connector.php");
-            
+			
+			$rID = $_GET['editRoom'];
             $building = $_GET['select-building'];
             $room_num = $_GET['room-number'];
             $short_name = $_GET['room-short-name'];
@@ -58,13 +59,13 @@
             $max_seats = $_GET['Max_seats'];
 			
 			//SQL Update Statement for roomSearch form
-            $sql = "UPDATE `room` (`building`, `room_num`, `short_name`, `is_required`, `max_seats`)
-                    SET select-building = '$building', 
-						room-number = '$room_num', 
-						room-short-name = '$short_name', 
-						is_req = '$is_required', 
-						Max_seats = '$max_seats';
-					WHERE id=editRoom";
+            $sql = "UPDATE `room` 
+                    SET building = '$building', 
+						room_num = '$room_num', 
+						short_name = '$short_name', 
+						is_required = '$is_required', 
+						max_seats = '$max_seats';
+					WHERE id=$rID";
 
 
             if ($dbconn->query($sql) === TRUE) {

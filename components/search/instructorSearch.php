@@ -50,7 +50,8 @@
         if (isset($_GET['editInstructor'])) 
         {
             include_once("./backend/db_connector.php");
-            
+			
+			$fID = $_GET['editInstructor'];
             $email = $_GET['update-instructor'];
             $fname = $_GET['instructor-fname'];
             $lname = $_GET['instructor-lname'];
@@ -59,14 +60,14 @@
             $program = $_GET['program'];
 
 			//SQL Update Statement for instructorSearch form
-            $sql = "UPDATE `faculty` (`email`, `fname`, `lname`, `max_credits`, `min_credits`, `program`)
-                    SET update-instructor = '$email', 
-					    instructor-fname = '$fname', 
-						instructor-lname = '$lname', 
-						instructor-maxcredits = '$max_credits', 
-						instructor-mincredits =	'$min_credits', 
+            $sql = "UPDATE `faculty` 
+                    SET email = '$email', 
+					    fname = '$fname', 
+						lname = '$lname', 
+						max_credits = '$max_credits', 
+						min_credits = '$min_credits', 
 						program = '$program';
-					WHERE id=editInstructor";
+					WHERE id=$fID";
 
             if ($dbconn->query($sql) === TRUE) {
                 echo "New record edited successfully";
