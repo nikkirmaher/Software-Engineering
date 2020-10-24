@@ -56,3 +56,44 @@
 		<?php } ?>
 	</table>
 </div>
+		<?php
+		//Edit Section
+        //If submit button is pressed.
+        if (isset($_GET['editCourse'])) 
+        {
+            include_once("./backend/db_connector.php");
+            
+            $name = $_GET['course-name'];
+            $short_name = $_GET['course-shortname'];
+            $is_requisite = $_GET['is_requisite'];
+            $has_requisite = $_GET['has_requisite'];
+            $co_requisite = $_GET['co_requisite'];
+            $is_alive = $_GET['alive'];
+            $program = $_GET['program'];
+            $num_credits = $_GET['num_credits'];
+            $semester = $_GET['semester'];
+            $year = $_GET['course-year'];
+
+			//SQL Update Statement for courseSearch form
+            $sql = "UPDATE `courses` (`name`, `short_name`, `is_requisite`, `has_requisite`, `co_requisite`, `is_alive`, `program`, `num_credits`, `semester`, `year`)
+                    SET  course-name = $name, 
+						 course-shortname = '$short_name', 
+						 is_requisite = '$is_requisite', 
+						 has_requisite = '$has_requisite', 
+						 co_requisite = '$co_requisite', 
+						 alive = '$is_alive', 
+						 program = '$program', 
+						 num_credits = '$num_credits', 
+						 semester = '$semester', 
+						 course-year = '$year';
+					WHERE id=editCourse";
+
+
+            if ($dbconn->query($sql) === TRUE) {
+                echo "New record edited successfully";
+              } else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+              }
+              $dbconn->close();
+        }
+    ?>

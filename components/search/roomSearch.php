@@ -44,3 +44,34 @@
 	<?php } ?>
 	</table>
 </div>
+		<?php
+		//Edit Section
+        //If submit button is pressed.
+        if (isset($_GET['editRoom'])) 
+        {
+            include_once("./backend/db_connector.php");
+            
+            $building = $_GET['select-building'];
+            $room_num = $_GET['room-number'];
+            $short_name = $_GET['room-short-name'];
+            $is_required = $_GET['is_req'];
+            $max_seats = $_GET['Max_seats'];
+			
+			//SQL Update Statement for roomSearch form
+            $sql = "UPDATE `room` (`building`, `room_num`, `short_name`, `is_required`, `max_seats`)
+                    SET select-building = '$building', 
+						room-number = '$room_num', 
+						room-short-name = '$short_name', 
+						is_req = '$is_required', 
+						Max_seats = '$max_seats';
+					WHERE id=editRoom";
+
+
+            if ($dbconn->query($sql) === TRUE) {
+                echo "New record edited successfully";
+              } else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+              }
+              $dbconn->close();
+        }
+        ?>

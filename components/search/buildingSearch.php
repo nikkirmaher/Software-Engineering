@@ -32,3 +32,27 @@
 		<?php } ?>
 	</table>
 </div>
+		<?php 
+		//Edit Section 
+        //If submit button is pressed.
+        if (isset($_GET['editBuilding'])) 
+        {
+            include_once("./backend/db_connector.php");
+            
+            $building_name = $_GET['update-building-name'];
+            $building_abbreviation = $_GET['update-building-abbreviation'];
+		   
+			//SQL Update Statement for buildingSearch form
+			$sql = "UPDATE `buildings` (`building_name`, `building_abbreviation`)
+                SET update-building-name = '$building_name', 
+					update-building-abbreviation = '$building_abbreviation';
+				WHERE id=editBuilding";
+
+            if ($dbconn->query($sql) === TRUE) {
+                echo "New record edited successfully";
+              } else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+              }
+              $dbconn->close();
+        }
+        ?>
