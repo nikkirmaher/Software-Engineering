@@ -6,8 +6,11 @@
     </form>
     <table id="userTable">
         <tr>
+            <th>UID</th>
+            <th>FID</th>
             <th>Username</th>
             <th>Password</th>
+            <th>User Type</th>
             <th>Action</th>
         </tr>
         <?php 
@@ -16,12 +19,18 @@
             $sql = "SELECT * FROM `user_data`";
             $result = mysqli_query($dbconn, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
+                $UID = $row['UID'];
+                $FID = $row['FID'];
                 $username = $row['username'];
                 $password = $row['password'];
+                $userType = $row['user_type'];
         ?>
         <tr>
+            <td><?php echo $UID; ?></td>
+            <td><?php echo $FID; ?></td>
             <td><?php echo $username; ?></td>
             <td><?php echo $password; ?></td>
+            <td><?php echo $userType; ?></td>
             <td>Edit</td>
         </tr>
         <?php } ?>

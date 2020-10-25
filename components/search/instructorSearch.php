@@ -4,7 +4,6 @@
 		<input type="text" placeholder="Enter Instructor Here.." name="search-instructor">
 		<button id="submitInstructor" type="submit"><i class="fa fa-search"></i></button>
 	</form>
-
 	<table>
 		<tr>
 			<th>FID</th>
@@ -16,7 +15,6 @@
 			<th>Program</th>
 			<th>Action</th>
 		</tr>
-	
 		<?php 
 			include_once("./backend/db_connector.php");
 

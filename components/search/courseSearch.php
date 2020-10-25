@@ -13,6 +13,7 @@
 			<th>Requisite</th> 
 			<th>Has Requisite</th>
 			<th>Co-Requisite</th>
+			<th>Is-Alive</th>
 			<th>Program</th>
 			<th>RID</th>
 			<th>Number of Credits</th>
@@ -20,7 +21,6 @@
 			<th>Year</th>
 			<th>Action</th>
 		</tr>
-	
 		<?php 
 			include_once("./backend/db_connector.php");
 
@@ -33,6 +33,7 @@
 				$isReq = $row['is_requisite'];
 				$hasReq = $row['has_requisite'];
 				$coReq = $row['co_requisite'];
+				$isAlive = $row['is_alive'];
 				$program = $row['program'];
 				$roomID = $row['RID'];
 				$credits = $row['num_credits'];
@@ -46,6 +47,7 @@
 			<td><?php echo $isReq; ?></td>
 			<td><?php echo $hasReq; ?></td>
 			<td><?php echo $coReq; ?></td>
+			<td><?php echo $isAlive; ?></td>
 			<td><?php echo $program; ?></td>
 			<td><?php echo $roomID; ?></td>
 			<td><?php echo $credits; ?></td>
@@ -88,7 +90,6 @@
 						 semester = '$semester', 
 						 year = '$year';
 					WHERE id=$cID";
-
 
             if ($dbconn->query($sql) === TRUE) {
                 echo "New record edited successfully";
