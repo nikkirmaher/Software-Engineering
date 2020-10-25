@@ -40,7 +40,7 @@
                 <br>
                 <input type="text"></input>
                 <br><br>
-                
+
                 <table>
                     <tr>
                         <th>Days</th>
@@ -76,11 +76,11 @@
                 <br><br>
 
                 <label for="schedule-preference">Schedule-Start Preference:</label><br>		
-                <input type="radio" id="schedule-preference" name="time-preference" value="morning">
+                <input type="radio" id="schedule-preference" name="schedule-preference" value="morning">
                 <label for="morning">Morning</label><br>
-                <input type="radio" id="schedule-preference" name="time-preference" value="afternoon">
+                <input type="radio" id="schedule-preference" name="schedule-preference" value="afternoon">
                 <label for="afternoon">Afternoon</label><br>
-                <input type="radio" id="schedule-preference" name="time-preference" value="evening">
+                <input type="radio" id="schedule-preference" name="schedule-preference" value="evening">
                 <label for="evening">Evening</label><br><br>
 
                 <label for="times">Course Padding (in minutes):</label>
