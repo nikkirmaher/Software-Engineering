@@ -23,6 +23,7 @@
 
 		<!-- Main Content -->
 		<div class="content">
+			<!-- List of available Searches -->
 			<div>
 				<a href="./search.php?searchType=user">User</a>
 				<a href="./search.php?searchType=instructor">Instructor</a>
