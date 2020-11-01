@@ -31,10 +31,10 @@
                 if(isset($_POST['login']))
                 {
                     include_once('backend/db_connector.php');
-                    $username = $_POST['username'];
+                    $email = $_POST['email'];
                     $password = $_POST['password'];
 
-                    $sql = "SELECT * FROM `user_data` WHERE `username` = '$username' AND `password` = '$password'";
+                    $sql = "SELECT * FROM `user_data` WHERE `email` = '$email' AND `password` = '$password'";
                     $result = mysqli_query($dbconn, $sql);
                     $row = mysqli_fetch_assoc($result);
                     $count = mysqli_num_rows($result);
@@ -42,6 +42,8 @@
                     if($count == 1) {
                         //Validate user credentials.
                         $_SESSION['loggedIn'] = true;
+                        $_SESSION['user'] = $email;
+                        $_SESSION['user_name'] = $row['first_name'] . " " . $row['last_name'];
                         header("Location: home.php");
                     }
                     else {
@@ -50,8 +52,8 @@
                 }
             ?>
             <form class="login-form" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" name="username" class="login-form-field">
+                <label for="email">Username:</label>
+                <input type="email" name="email" class="login-form-field">
                 <br>
                 <label for="password">Password:</label>
 				<input type="password" name="password" class="login-form-field">
