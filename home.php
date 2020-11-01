@@ -21,7 +21,11 @@
         
         <!-- Page Content -->
         <div class="content">
-
+            <p>
+                Welcome, <?php echo $_SESSION['user_name']; ?>
+                <br><br>You may use the sidebar to navigate.
+                
+            </p>
         </div>
     </body>
 </html>
