@@ -107,8 +107,8 @@
             $semester = $_GET['semester'];
             $year = $_GET['course-year'];
 
-            $sql = "INSERT INTO courses (`name`, `short_name`, `is_requisite`, `has_requisite`, `co_requisite`, `is_alive`, `program`, `num_credits`, `semester`, `year`)
-                    VALUES ('$name', '$short_name', '$is_requisite', '$has_requisite', '$co_requisite', '$is_alive', '$program', '$num_credits', '$semester', '$year')";
+            $sql = "INSERT INTO courses (`title`, , `short_name`, `is_active`, `PROGRAM`, `required_RID`, `num_credits`, `contact_hours`, `semester_offered`)
+                    VALUES ('$title', '$short_name', '$is_active', '$PROGRAM', '$required_RID', '$num_credits', '$contact_hours', '$semester_offered')";
 
 
             if ($dbconn->query($sql) === TRUE) {

@@ -48,8 +48,8 @@ if (isset($_POST['addRoom']))
     $is_required = $_POST['is_req'];
     $max_seats = $_POST['Max_seats'];
 
-    $sql = "INSERT INTO `room` (`room_num`, `short_name`, `is_required`, `max_seats`)
-            VALUES ('$room_num', '$short_name', '$is_required', '$max_seats')";
+    $sql = "INSERT INTO `rooms` (`BID`, `room_num`, `short_name`, `is_required`, `is_exclusive`, `max_seats`)
+            VALUES ('$BID','$room_num', '$short_name', '$is_required', '$is_exclusive','$max_seats')";
 
     if ($dbconn->query($sql) === TRUE) {
       echo "New record created successfully";
