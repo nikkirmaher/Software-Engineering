@@ -26,7 +26,6 @@
 			<!-- List of available Searches -->
 			<div>
 				<a href="./search.php?searchType=user">User</a>
-				<a href="./search.php?searchType=instructor">Instructor</a>
 				<a href="./search.php?searchType=course">Course</a>
 				<a href="./search.php?searchType=building">Building</a>
 				<a href="./search.php?searchType=room">Room</a>
@@ -35,9 +34,6 @@
 				if(isset($_GET['searchType'])) {
 					if($_GET['searchType'] == 'user') {
 						include_once('./components/search/userSearch.php');
-					}
-					else if($_GET['searchType'] == 'instructor') {
-						include_once('./components/search/instructorSearch.php');
 					}
 					else if($_GET['searchType'] == 'course') {
 						include_once('./components/search/courseSearch.php');

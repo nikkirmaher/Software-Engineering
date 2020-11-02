@@ -28,7 +28,6 @@
 			<!-- List of available Creates -->
 			<div>
 				<a href="./create.php?createType=user">User</a>
-				<a href="./create.php?createType=instructor">Instructor</a>
 				<a href="./create.php?createType=course">Course</a>
 				<a href="./create.php?createType=building">Building</a>
 				<a href="./create.php?createType=room">Room</a>
@@ -37,9 +36,6 @@
 				if(isset($_GET['createType'])) {
 					if($_GET['createType'] == 'user') {
 						include_once('./components/create/userCreate.php');
-					}
-					else if($_GET['createType'] == 'instructor') {
-						include_once('./components/create/instructorCreate.php');
 					}
 					else if($_GET['createType'] == 'course') {
 						include_once('./components/create/courseCreate.php');
