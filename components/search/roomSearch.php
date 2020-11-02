@@ -34,7 +34,6 @@
 
 <div id="roomSearch">
 	<h2>Search Room</h2>
-
 	<input id="userInput" type="text" placeholder="Enter Room Here.." name="search-room">
 	<button id="searchRoom" type="button">Search</button>
 	<br><br>
@@ -160,19 +159,19 @@
 		//user input to be either yes or no.
 		if(editRow.cells[4].innerText === "0") {
 			document.getElementById('edit-required-no').checked = true;
-			document.getElementById('edit-required-yes').value = false;
+			document.getElementById('edit-required-yes').checked = false;
 		}
 		else if(editRow.cells[4].innerText === "1") {
-			document.getElementById('edit-required-yes').value = true;
+			document.getElementById('edit-required-yes').checked = true;
 			document.getElementById('edit-required-no').checked = false;
 		}
 		
 		if(editRow.cells[5].innerText === "0") {
 			document.getElementById('edit-exclusive-no').checked = true;
-			document.getElementById('edit-exclusive-yes').value = false;
+			document.getElementById('edit-exclusive-yes').checked = false;
 		}
 		else if(editRow.cells[5].innerText === "1") {
-			document.getElementById('edit-exclusive-yes').value = true;
+			document.getElementById('edit-exclusive-yes').checked = true;
 			document.getElementById('edit-exclusive-no').checked = false;
 		}
 

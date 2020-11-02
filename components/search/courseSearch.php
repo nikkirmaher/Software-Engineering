@@ -2,47 +2,45 @@
 				include_once("./backend/db_connector.php");
 			//Edit Section
 			//If submit button is pressed.
-			if (isset($_GET['editCourse'])) 
+			if (isset($_POST['editCourse'])) 
 			{
-				$cID = $_GET['editCourse'];
-				$name = $_GET['course-name'];
-				$short_name = $_GET['course-shortname'];
-				$is_requisite = $_GET['is_requisite'];
-				$has_requisite = $_GET['has_requisite'];
-				$co_requisite = $_GET['co_requisite'];
-				$is_alive = $_GET['alive'];
-				$program = $_GET['program'];
-				$num_credits = $_GET['num_credits'];
-				$semester = $_GET['semester'];
-				$year = $_GET['course-year'];
+				$cID = $_POST['edit-cid'];
+				$title = $_POST['edit-title'];
+				$shortname = $_POST['edit-short-name'];
+				$isactive = $_POST['edit-active'];
+				$program = $_POST['edit-program'];
+				$requiredrid = $_POST['edit-required'];
+				if($requiredrid == '') {
+					$requiredrid = 'NULL';
+				}
+				$numcredits = $_POST['edit-number-credits'];
+				$contacthours = $_POST['edit-contact-hours'];
+				$semester = $_POST['edit-semester-offered'];
 				//SQL Update Statement for courseSearch form
 				$sql = "UPDATE `courses` 
-						SET  name = '$name', 
-							 short_name = '$short_name', 
-							 is_requisite = '$is_requisite', 
-							 has_requisite = '$has_requisite', 
-							 co_requisite = '$co_requisite', 
-							 is_alive = '$is_alive', 
-							 program = '$program', 
-							 num_credits = '$num_credits', 
-							 semester = '$semester', 
-							 year = '$year';
-						WHERE id=$cID";
+						SET  `title` = '$title', 
+							 `short_name` = '$shortname', 
+							 `is_active` = $isactive, 
+							 `PROGRAM` = '$program', 
+							 `required_RID` = $requiredrid, 
+							 `num_credits` = '$numcredits', 
+							 `contact_hours` = '$contacthours',
+							 `semester_offered` = '$semester'
+						WHERE `CID`=$cID";
 	
 				if ($dbconn->query($sql) === TRUE) {
-					echo "New record edited successfully";
-				  } else {
+					echo "Course edited successfully";
+				} 
+				else {
 					echo "Error: " . $sql . "<br>" . $dbconn->error;
-				  }
-				  $dbconn->close();
+				}
 			}
 		?>
 <div id="courseSearch">
 	<h2>Search Course</h2>
-	
 	<input id="userInput" type="text" placeholder="Enter Course Here.." name="search-course">
 	<button id="searchCourse" type="button">Search</button>
-
+	<br><br>
 
 	<table id="courseTable">
 		<tr>
@@ -64,7 +62,7 @@
 
 		if($numResults < 1) {
 			echo("<tr>
-				<td colspan='10'>No Rooms found</td>
+				<td colspan='10'>No Courses found</td>
 				</tr>");
 		}
 		else {
@@ -104,8 +102,8 @@
 	<div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close">&times;</span>
-		<p class="title">Edit Room</p>
-		<form name="edit-building" method="post" action="./search.php?searchType=building">
+		<p class="title">Edit Course</p>
+		<form name="edit-course" method="post" action="./search.php?searchType=course">
 			<input type="hidden" name="edit-cid" id="edit-cid"> 
 
 			<label for="edit-title">title:</label>
@@ -121,26 +119,38 @@
 			<input type="radio" name="edit-active" id="edit-active-no" value="0" onchange="enableButton();">
 			<label for="edit-active">No</label>
 			<br>
+
 			<label for="edit-program">Program:</label>
 			<input type="text" name="edit-program" id="edit-program" onkeyup="enableButton();">
 			<br>
-			Does this course require a specific room?<br>
-			<input type="radio" name="edit-required" id="edit-required-yes" value="1" onchange="enableButton();">
-			<label for="edit-required-yes">Yes</label>
-			<input type="radio" name="edit-required" id="edit-required-no" value="0" onchange="enableButton();">
-			<label for="edit-required-no">No</label>
+
+			<label for="edit-required">If this Course Requires a specific room please choose that room.</label><br>
+			<select name="edit-required" id="edit-required" onchange="enableButton();">
+				<option id="requiredRoom" value=""></option>
+				<?php
+                    $sql = "SELECT * FROM `rooms`";
+                    $query = mysqli_query($dbconn, $sql);
+                    while($row = mysqli_fetch_assoc($query)) {
+                        echo("<option value='" . $row['RID'] . "'>" . $row['short_name'] . "</option>");
+                    }
+                ?>
+			</select>
+			
 			<br>
+
 			<label for="edit-number-credits">Number Of Credits:</label>
 			<input type="number" name="edit-number-credits" id="edit-number-credits" onchange="enableButton();">
 			<br>
+
 			<label for="edit-contact-hours">Contact Hours:</label>
 			<input type="number" name="edit-contact-hours" id="edit-contact-hours" onchange="enableButton();">
 			<br>
+
 			<label for="edit-semester-offered">Semester Offered:</label>
 			<input type="number" name="edit-semester-offered" id="edit-semester-offered" onchange="enableButton();">
 			<br>
 
-			<button type="submit" name="editRoom" id="editRoom" disabled>Save Changes</button>
+			<button type="submit" name="editCourse" id="editCourse" disabled>Save Changes</button>
             <button type="reset" name="reset" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
 		</form>
 	</div>
@@ -165,22 +175,20 @@
 		document.getElementById('edit-title').value = editRow.cells[1].innerText; 
 		document.getElementById('edit-short-name').value = editRow.cells[2].innerText;
 
-		//Required and Exclusive fields have boolean values and require
-		//user input to be either yes or no.
-		if(editRow.cells[4].innerText === "0") {
+		if(editRow.cells[3].innerText === "0") {
 			document.getElementById('edit-active-no').checked = true;
-			document.getElementById('edit-active-yes').value = false;
+			document.getElementById('edit-active-yes').checked = false;
 		}
-		else if(editRow.cells[4].innerText === "1") {
-			document.getElementById('edit-active-yes').value = true;
+		else if(editRow.cells[3].innerText === "1") {
+			document.getElementById('edit-active-yes').checked = true;
 			document.getElementById('edit-active-no').checked = false;
 		}
-		document.getElementById('edit-program').value = editRow.cells[3].innerText;
-		document.getElementById('edit-required-rid').value = editRow.cells[3].innerText;
-		document.getElementById('edit-required-rid').innerText = editRow.cells[3].innerText;
-		document.getElementById('edit-number-credits').value = editRow.cells[3].innerText;
-		document.getElementById('edit-contact-hours').value = editRow.cells[3].innerText;
-		document.getElementById('edit-semester-offered').value = editRow.cells[3].innerText;
+		document.getElementById('edit-program').value = editRow.cells[4].innerText;
+		document.getElementById('requiredRoom').value = editRow.cells[5].innerText;
+		document.getElementById('requiredRoom').innerText = editRow.cells[5].innerText;
+		document.getElementById('edit-number-credits').value = editRow.cells[6].innerText;
+		document.getElementById('edit-contact-hours').value = editRow.cells[7].innerText;
+		document.getElementById('edit-semester-offered').value = editRow.cells[8].innerText;
 	}
 
 	// Only give the user the option to save changes if changes are made.
