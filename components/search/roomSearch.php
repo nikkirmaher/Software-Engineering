@@ -5,21 +5,23 @@
 	//Edit Section
 	//If submit button is pressed.
 	if (isset($_POST['editRoom'])) {		
-		$rID = $_GET['editRoom'];
-		$building = $_GET['select-building'];
-		$room_num = $_GET['room-number'];
-		$short_name = $_GET['room-short-name'];
-		$is_required = $_GET['is_req'];
-		$max_seats = $_GET['Max_seats'];
+		$rID = $_POST['edit-rid'];
+		$building = $_POST['edit-bid'];
+		$room_num = $_POST['edit-room-number'];
+		$short_name = $_POST['edit-short-name'];
+		$is_required = $_POST['edit-required'];
+		$is_exclusive = $_POST['edit-exclusive'];
+		$max_seats = $_POST['edit-max-seats'];
 		
 		//SQL Update Statement for roomSearch form
-		$sql = "UPDATE `room` 
-			SET building = '$building', 
-				room_num = '$room_num', 
-				short_name = '$short_name', 
-				is_required = '$is_required', 
-				max_seats = '$max_seats';
-			WHERE id=$rID";
+		$sql = "UPDATE `rooms` 
+			SET `BID` = $building, 
+				`room_num` = '$room_num', 
+				`short_name` = '$short_name', 
+				`is_required` = '$is_required',
+				`is_exclusive` = '$is_exclusive',
+				`max_seats` = '$max_seats'
+			WHERE `RID`='$rID'";
 
 		if ($dbconn->query($sql) === TRUE) {
 			echo "Room edited successfully";
@@ -94,7 +96,7 @@
 	<div class="modal-content">
 		<span class="close">&times;</span>
 		<p class="title">Edit Room</p>
-		<form name="edit-building" method="post" action="./search.php?searchType=building">
+		<form name="edit-room" method="post" action="./search.php?searchType=room">
 			<input type="hidden" name="edit-rid" id="edit-rid"> 
 
 			<label for="edit-bid">Building:</label>
