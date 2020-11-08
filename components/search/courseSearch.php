@@ -1,41 +1,41 @@
-			<?php
-				include_once("./backend/db_connector.php");
-			//Edit Section
-			//If submit button is pressed.
-			if (isset($_POST['editCourse'])) 
-			{
-				$cID = $_POST['edit-cid'];
-				$title = $_POST['edit-title'];
-				$shortname = $_POST['edit-short-name'];
-				$isactive = $_POST['edit-active'];
-				$program = $_POST['edit-program'];
-				$requiredrid = $_POST['edit-required'];
-				if($requiredrid == '') {
-					$requiredrid = 'NULL';
-				}
-				$numcredits = $_POST['edit-number-credits'];
-				$contacthours = $_POST['edit-contact-hours'];
-				$semester = $_POST['edit-semester-offered'];
-				//SQL Update Statement for courseSearch form
-				$sql = "UPDATE `courses` 
-						SET  `title` = '$title', 
-							 `short_name` = '$shortname', 
-							 `is_active` = $isactive, 
-							 `PROGRAM` = '$program', 
-							 `required_RID` = $requiredrid, 
-							 `num_credits` = '$numcredits', 
-							 `contact_hours` = '$contacthours',
-							 `semester_offered` = '$semester'
-						WHERE `CID`=$cID";
-	
-				if ($dbconn->query($sql) === TRUE) {
-					echo "Course edited successfully";
-				} 
-				else {
-					echo "Error: " . $sql . "<br>" . $dbconn->error;
-				}
-			}
-		?>
+<?php
+	include_once("./backend/db_connector.php");
+	//Edit Section
+	//If submit button is pressed.
+	if (isset($_POST['editCourse'])) 
+	{
+		$cID = $_POST['edit-cid'];
+		$title = $_POST['edit-title'];
+		$shortname = $_POST['edit-short-name'];
+		$isactive = $_POST['edit-active'];
+		$program = $_POST['edit-program'];
+		$requiredrid = $_POST['edit-required'];
+		if($requiredrid == '') {
+			$requiredrid = 'NULL';
+		}
+		$numcredits = $_POST['edit-number-credits'];
+		$contacthours = $_POST['edit-contact-hours'];
+		$semester = $_POST['edit-semester-offered'];
+		//SQL Update Statement for courseSearch form
+		$sql = "UPDATE `courses` 
+				SET  `title` = '$title', 
+						`short_name` = '$shortname', 
+						`is_active` = $isactive, 
+						`PROGRAM` = '$program', 
+						`required_RID` = $requiredrid, 
+						`num_credits` = '$numcredits', 
+						`contact_hours` = '$contacthours',
+						`semester_offered` = '$semester'
+				WHERE `CID`=$cID";
+
+		if ($dbconn->query($sql) === TRUE) {
+			echo "Course edited successfully";
+		} 
+		else {
+			echo "Error: " . $sql . "<br>" . $dbconn->error;
+		}
+	}
+?>
 <div id="courseSearch">
 	<h2>Search Course</h2>
 	<input id="userInput" type="text" placeholder="Enter Course Here.." name="search-course">
