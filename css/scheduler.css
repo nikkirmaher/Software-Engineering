@@ -71,7 +71,6 @@ th {
 	width: 8%;
 	cursor: pointer;
 	position: fixed;
-	
 }
 
 .leftnav
@@ -170,7 +169,7 @@ th {
 }
 
 /* Search Butttons */
-.searchBuilding
+#searchBuilding
 {
 	width: 100%;
 	padding: 7px;
@@ -180,7 +179,7 @@ th {
 	cursor: pointer;
 }
 
-.searchCourse
+#searchCourse
 {
 	width: 100%;
 	padding: 7px;
@@ -190,7 +189,7 @@ th {
 	cursor: pointer;
 }
 
-.searchRoom
+#searchRoom
 {
 	width: 100%;
 	padding: 7px;
@@ -200,7 +199,7 @@ th {
 	cursor: pointer;
 }
 
-.searchUser
+#searchUser
 {
 	width: 100%;
 	padding: 7px;
