@@ -4,7 +4,7 @@ html
 {
 	height:100%;
 }
-/*hi*/
+
 body
 {
 	height: 100%;
@@ -115,6 +115,9 @@ th {
   margin-top: 90px; /* Same as the height of the header */
   padding: 10px;
   display: inline-table;
+  color: white;
+  font-size: 25;
+  font-weight: bold;
 }
 
 .title
