@@ -169,42 +169,38 @@ th {
 }
 
 /* Search Butttons */
-#searchBuilding
+button#searchBuilding
 {
-	width: 100%;
-	padding: 7px;
-	margin-left: 50px;  
-	color: white;
-	background-color: #013e7f;
-	cursor: pointer;
+	width: auto;
+    padding: 7px;
+    color: white;
+    background-color: #013e7f;
+    cursor: pointer;
 }
 
-#searchCourse
+button#searchCourse
 {
-	width: 100%;
-	padding: 7px;
-	margin-left: 50px;  
-	color: white;
-	background-color: #013e7f;
-	cursor: pointer;
+	width: auto;
+    padding: 7px;
+    color: white;
+    background-color: #013e7f;
+    cursor: pointer;
 }
 
-#searchRoom
+button#searchRoom
 {
-	width: 100%;
-	padding: 7px;
-	margin-left: 50px;  
-	color: white;
-	background-color: #013e7f;
-	cursor: pointer;
+	width: auto;
+    padding: 7px;
+    color: white;
+    background-color: #013e7f;
+    cursor: pointer;
 }
 
-#searchUser
+button#searchUser
 {
-	width: 100%;
-	padding: 7px;
-	margin-left: 50px;  
-	color: white;
-	background-color: #013e7f;
-	cursor: pointer;
+	width: auto;
+    padding: 7px;
+    color: white;
+    background-color: #013e7f;
+    cursor: pointer;
 }
