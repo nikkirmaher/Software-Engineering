@@ -120,7 +120,7 @@
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close">&times;</span>
-		<p class="title">Edit User</p>
+		<h3>User</h3>
         <form name="edit-user" method="post" action="./search.php?searchType=user">
             <input type="hidden" id="edit-uid" name="edit-uid">
 
@@ -133,7 +133,7 @@
             <br>
 
             <label for="edit-first-name">First Name:</label> 
-            <input type="text"  name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
+            <input type="text" name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
             <br>
 
             <label for="edit-last-name">Last Name:</label> 
@@ -176,6 +176,11 @@
                 ?>
             </select>
             <br>
+
+            <h3>Availability</h3>
+            <table id="availabilityTable">
+                
+            </table>
 
             <button type="submit" name="editUser" id="editUser" disabled>Save Changes</button>
             <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
@@ -222,6 +227,8 @@
             document.getElementById('usertype-select').value = 5;
             document.getElementById('usertype-select').innerText = editRow.cells[1].innerText;
         }
+        showAvailability(editRow.cells[0].innerText);
+        
     }
 
     // Only give the user the option to save changes if changes are made.
@@ -238,6 +245,23 @@
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        }
+    }
+
+    //Function to show the courses available in a selected department.
+    function showAvailability(str) {
+        if (str == "") {
+            return;
+        } 
+        else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("availabilityTable").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "./backend/getAvailability.php?UID="+str, true);
+            xmlhttp.send();
         }
     }
 </script>
