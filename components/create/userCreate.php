@@ -75,6 +75,7 @@
             <!-- This select lists all possible user types from the permissions database table. -->
             <label for="create-usertype">User Type:</label>
             <select name="create-usertype" id="create-usertype">
+                <option value="">Please select the user type.</option>
                 <?php
                     $sql = "SELECT * FROM `permissions`";
                     $query = mysqli_query($dbconn, $sql);
@@ -87,6 +88,7 @@
             <!-- This select lists all possible programs from the programs database table. -->
             <label for="create-program">Program:</label>
             <select name="create-program" id="create-program">
+                <option value="">Please select a program</option>
                 <?php
                     $sql = "SELECT * FROM `programs`";
                     $query = mysqli_query($dbconn, $sql);

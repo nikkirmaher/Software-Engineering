@@ -46,25 +46,27 @@
 
 		<label id="add" for="create-course"> Program: </label> 
 		<select id="program" name="program">
-		<?php
-			$sql = "SELECT * FROM `programs`";
-			$query = mysqli_query($dbconn, $sql);
-			while($row = mysqli_fetch_assoc($query)) {
-				echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
-			}
-		?>
+			<option value="">Please select the program</option>
+			<?php
+				$sql = "SELECT * FROM `programs`";
+				$query = mysqli_query($dbconn, $sql);
+				while($row = mysqli_fetch_assoc($query)) {
+					echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
+				}
+			?>
 		</select>
 		<br>
 		
-		<label id="add" for="create-course"> Required Room ID: </label> 
+		<label id="add" for="create-course"> Required Room (if applicable): </label> 
 		<select id="required_RID" name="required_RID">
-		<?php
-			$sql = "SELECT * FROM `rooms`";
-			$query = mysqli_query($dbconn, $sql);
-			while($row = mysqli_fetch_assoc($query)) {
-				echo("<option value='" . $row['RID'] . "'>" . $row['short_name'] . "</option>");
-			}
-		?>
+			<option value="">Please select the required room</option>
+			<?php
+				$sql = "SELECT * FROM `rooms`";
+				$query = mysqli_query($dbconn, $sql);
+				while($row = mysqli_fetch_assoc($query)) {
+					echo("<option value='" . $row['RID'] . "'>" . $row['short_name'] . "</option>");
+				}
+			?>
 		</select>
 		<br>
 		
