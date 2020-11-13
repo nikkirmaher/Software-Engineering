@@ -36,7 +36,7 @@
     <input type="text" id="max_seats" name="Max_seats" placeholder="Enter the maximum number of seats.">
     <br>
 
-    <input id="submit" type="submit" name="addRoom">
+    <button type="submit" name="addRoom">Create Room</button>
   </form>
 </div>
 <?php

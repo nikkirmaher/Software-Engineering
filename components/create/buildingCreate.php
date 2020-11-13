@@ -9,7 +9,7 @@
         <input type="text" placeholder="Enter Building Abbreviation Here.." name="create-building-abbreviation">
         <br>
         
-        <input id="submit" type="submit" name="addBuilding">
+        <button type="submit" name="addBuilding">Create Building</button>
     </form>
     
         </div>
