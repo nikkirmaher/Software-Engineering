@@ -47,7 +47,6 @@
                 }
             }
         }
-        $dbconn->close();
     }
 ?>
 <div id="userCreate">
