@@ -38,6 +38,7 @@
 			<th>Building Name</th>
 			<th>Building Abbreviation</th>
 			<th>Action</th>
+			<th>Delete</th>
 		</tr>		
 		<?php 
 			$sql = "SELECT * FROM `buildings`";
@@ -61,6 +62,7 @@
 			<td><?php echo $bname; ?></td>
 			<td><?php echo $babrv; ?></td>
 			<td><button type="button" onclick="displayModal(<?php echo ++$rowNum ?>, 'buildingTable')">View</button></td>
+			<td><button type="button" onclick="displayModal2()">Delete</button></td>
 		</tr>
 		<?php 
 				}
@@ -74,7 +76,7 @@
     from the table instead of making another database call. -->
 <div id="myModal" class="modal">
 	<div class="modal-content">
-		<span class="close">&times;</span>
+		<span class="close"  onclick="closeModal()">&times;</span>
 		<p class="title">Edit Building</p>
 		<form name="edit-building" method="post" action="./search.php?searchType=building">
 			<input type="hidden" name="edit-bid" id="edit-bid"> 
@@ -93,15 +95,28 @@
 	</div>
 </div>
 
+<div id="myModal2" class="modal">
+
+	<div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+	  <div class="modal-text" id="modal2-text">
+      <h2>Delete</h2>
+    
+      <p>Are you sure you want to delete?</p>
+	  <button type="button">Yes, delete</button>
+	  <button type="button" onclick="closeModal()">No, do not delete</button>
+	  </div>
+  </div>
+
+</div>	
+
 <script>
 	//Get the modal
 	var modal = document.getElementById("myModal");
+	var modal2 = document.getElementById("myModal2");
 
 	// Get the button that opens the modal
 	var btn = document.getElementById("myBtn");
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
 
 	// When the user clicks the button, open the modal and populate the fields
 	// with information from the selected table row.
@@ -114,6 +129,11 @@
 		document.getElementById('edit-building-name').value = editRow.cells[1].innerText; 
 		document.getElementById('edit-building-abbreviation').value = editRow.cells[2].innerText;
 	}
+	//Display Delete Modal
+	function displayModal2(){
+		modal2.style.display = "block";
+	
+	}
 
 	// Only give the user the option to save changes if changes are made.
     function enableButton() {
@@ -121,8 +141,10 @@
 	}
 	
 	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
+	function closeModal()
+	{
 		modal.style.display = "none";
+		modal2.style.display = "none";
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
