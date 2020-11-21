@@ -73,6 +73,26 @@
                         <td><input type="time" id="friday-end" name="friday-end"></td>
                     </tr>
                 </table>
+	<table id="courseTable">
+		<tr>
+			<th>CID</th>
+			<th>Title</th> 
+			<th>Course Short Name</th>
+			<th>Number of Credits</th>
+			<th>Contact Hours</th>
+			<th>Running?</th>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><input type="checkbox" id="running" name="running" value="running"></td>
+	</table>
+
+				
                 <br><br>
 
                 <label for="schedule-preference">Schedule-Start Preference:</label><br>		

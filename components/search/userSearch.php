@@ -69,6 +69,7 @@
             <th>Min Credits</th>
             <th>Program</th>
             <th>Action</th>
+			<th>Delete</th>
         </tr>
         <?php 
             $sql = "SELECT * FROM user_data
@@ -106,6 +107,7 @@
             <td><?php echo $mincred; ?></td>
             <td><?php echo $program; ?></td>
             <td><button type="button" onclick="displayModal(<?php echo ++$rowNum; ?>, 'userTable')">View</button></td>
+			<td><button type="button" onclick="displayModal2()">Delete</button></td>
         </tr>
         <?php 
                 } 
@@ -120,7 +122,7 @@
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close">&times;</span>
-		<p class="title">Edit User</p>
+		<h3>User</h3>
         <form name="edit-user" method="post" action="./search.php?searchType=user">
             <input type="hidden" id="edit-uid" name="edit-uid">
 
@@ -133,7 +135,7 @@
             <br>
 
             <label for="edit-first-name">First Name:</label> 
-            <input type="text"  name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
+            <input type="text" name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
             <br>
 
             <label for="edit-last-name">Last Name:</label> 
@@ -177,16 +179,36 @@
             </select>
             <br>
 
+            <h3>Availability</h3>
+            <table id="availabilityTable">
+                
+            </table>
+
             <button type="submit" name="editUser" id="editUser" disabled>Save Changes</button>
             <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
         </form>
     </div>
 </div>
 
+<div id="myModal2" class="modal">
+
+	<div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+	  <div class="modal-text" id="modal2-text">
+      <h2>Delete</h2>
+    
+      <p>Are you sure you want to delete?</p>
+	  <button type="button">Yes, delete</button>
+	  <button type="button" onclick="closeModal()">No, do not delete</button>
+	  </div>
+  </div>
+
+</div>	
+
 <script>
     //Get the modal
-    var modal = document.getElementById("myModal");
-
+	var modal = document.getElementById("myModal");
+	var modal2 = document.getElementById("myModal2");
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
 
@@ -222,22 +244,47 @@
             document.getElementById('usertype-select').value = 5;
             document.getElementById('usertype-select').innerText = editRow.cells[1].innerText;
         }
+        showAvailability(editRow.cells[0].innerText);
+        
     }
 
     // Only give the user the option to save changes if changes are made.
     function enableButton() {
         document.getElementById('editUser').disabled = false;
     }
+	//Display Delete Modal
+	function displayModal2()
+	{
+		modal2.style.display = "block";
+	}
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
+	// When the user clicks on <span> (x), close the modal
+	function closeModal()
+	{
+		modal.style.display = "none";
+		modal2.style.display = "none";
+	}
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        }
+    }
+
+    //Function to show the courses available in a selected department.
+    function showAvailability(str) {
+        if (str == "") {
+            return;
+        } 
+        else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("availabilityTable").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "./backend/getAvailability.php?UID="+str, true);
+            xmlhttp.send();
         }
     }
 </script>

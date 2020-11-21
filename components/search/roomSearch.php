@@ -49,6 +49,7 @@
 		<th>Exclusive?</th>
 		<th>Maximum Seats</th>
 		<th>Action</th>
+		<th>Delete</th>
 	</tr>
 	<?php 
 		$sql = "SELECT * FROM `rooms`";
@@ -80,6 +81,7 @@
 		<td><?php echo $exclusive; ?></td>
 		<td><?php echo $maxseats; ?></td>
 		<td><button type="button" onclick="displayModal(<?php echo ++$rowNum ?>, 'roomTable')">View</button></td>
+		<td><button type="button" onclick="displayModal2()">Delete</button></td>
 	</tr>
 	<?php 
 			}
@@ -93,7 +95,7 @@
     from the table instead of making another database call. -->
 <div id="myModal" class="modal">
 	<div class="modal-content">
-		<span class="close">&times;</span>
+		<span class="close" onclick="closeModal()">&times;</span>
 		<p class="title">Edit Room</p>
 		<form name="edit-room" method="post" action="./search.php?searchType=room">
 			<input type="hidden" name="edit-rid" id="edit-rid"> 
@@ -133,15 +135,27 @@
 	</div>
 </div>
 
+<div id="myModal2" class="modal">
+
+	<div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+	  <div class="modal-text" id="modal2-text">
+      <h2>Delete</h2>
+    
+      <p>Are you sure you want to delete?</p>
+	  <button type="button">Yes, delete</button>
+	  <button type="button" onclick="closeModal()">No, do not delete</button>
+	  </div>
+  </div>
+
+</div>	
+
 <script>
 	//Get the modal
 	var modal = document.getElementById("myModal");
-
+	var modal2 = document.getElementById("myModal2");
 	// Get the button that opens the modal
 	var btn = document.getElementById("myBtn");
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
 
 	// When the user clicks the button, open the modal and populate the fields
 	// with information from the selected table row.
@@ -183,11 +197,18 @@
         document.getElementById('editRoom').disabled = false;
 	}
 	
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-		modal.style.display = "none";
+	//Display Delete Modal
+	function displayModal2()
+	{
+		modal2.style.display = "block";
 	}
 
+	// When the user clicks on <span> (x), close the modal
+	function closeModal()
+	{
+		modal.style.display = "none";
+		modal2.style.display = "none";
+	}
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 		if (event.target == modal) {

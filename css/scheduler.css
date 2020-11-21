@@ -169,7 +169,7 @@ th {
 }
 
 /* Search Butttons */
-button#searchBuilding
+a
 {
 	width: auto;
     padding: 7px;

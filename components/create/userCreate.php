@@ -15,12 +15,12 @@
         $sql = "INSERT INTO `user_data` (`PID`, `email`, `password`, `first_name`, `last_name`, `max_credits`, `min_credits`, `program`) 
                     VALUES ('$permissions', '$email', '$password', '$firstname', '$lastname', '$maxcred', '$mincred', '$program')";
 
-        if ($dbconn->query($sql) === TRUE) {
+        /* if ($dbconn->query($sql) === TRUE) {
             echo "User successfully added.";
         } 
         else {
             echo "Error adding new user: " . $sql . "<br>" . $dbconn->error;
-        }
+        } */
         //Check if availability was provided
         if($_POST['availability-rows'] > 0 ) {
             $numberRows = $_POST['availability-rows'];
@@ -32,22 +32,22 @@
             $userID = $row['UID'];
             $semesterID = $_POST['semester'];
 
-            for($i = 0; $i < $numberRows; ++$i) {
+            for($i = 1; $i < $numberRows; ++$i) {
                 $day = $_POST['day' . $i];
                 $startTime = $_POST['start' . $i];
                 $endTime = $_POST['end' . $i];
                 
-                $sql = "INSERT INTO 'user_schedule' (`UID`,`SEID`,`day`,`available_time`,`end_time`)
+                $sql = "INSERT INTO `user_schedule` (`UID`,`SEID`,`day`,`start_time`,`end_time`)
                             VALUES ('$userID', '$semesterID', '$day', '$startTime', '$endTime')";
                 if ($dbconn->query($sql) === TRUE) {
-                    echo "User availability updated sucessfully";
-                } 
+                    echo "";
+                }
                 else {
                     echo "Error updating user availability: " . $sql . "<br>" . $dbconn->error;
+                    exit();
                 }
             }
         }
-        $dbconn->close();
     }
 ?>
 <div id="userCreate">
@@ -76,6 +76,7 @@
             <!-- This select lists all possible user types from the permissions database table. -->
             <label for="create-usertype">User Type:</label>
             <select name="create-usertype" id="create-usertype">
+                <option value="">Please select the user type.</option>
                 <?php
                     $sql = "SELECT * FROM `permissions`";
                     $query = mysqli_query($dbconn, $sql);
@@ -88,6 +89,7 @@
             <!-- This select lists all possible programs from the programs database table. -->
             <label for="create-program">Program:</label>
             <select name="create-program" id="create-program">
+                <option value="">Please select a program</option>
                 <?php
                     $sql = "SELECT * FROM `programs`";
                     $query = mysqli_query($dbconn, $sql);
@@ -146,7 +148,7 @@
             <br><br>
         </div>
 
-        <button type="submit" name="addUser">Add User</button>
+        <button type="submit" name="addUser">Create User</button>
         <button type="button" id="showAvailability" onclick="document.getElementById('userAvailability').style.display='block';">Add Availability</button>
     </form>
 </div>
