@@ -26,26 +26,26 @@
         
         <!-- Page Content -->
         <div class="content">
-            <p>
-                <h1>Course Scheduler</h1>
-                Please fill out the following information before generating schedules:
-            </p>
+            <h2>Course Scheduler</h2>
+            <p>Please fill out the following information before generating schedules:</p>
             <form method="get" action="...">	
                 <label for="semester">Semester:</label>
-                <br>
-                <select>
-                    <option value="fall">Fall</option>
-                    <option value="spring">Spring</option>
-                    <option value="summer">Summer</option>
-                    <option value="winter">Winter</option>
-                </select>
-                <br><br>
-                
-                <label for="year">Year:</label>
-                <br>
-                <input type="text"></input>
-                <br><br>
+                <select name="semester" id="semester">
+                    <option value="">Please select the semester</option>
+                    <?php
+                        include_once("./backend/db_connector.php");
+                        $sql = "SELECT * FROM `semester`";
+                        $query = mysqli_query($dbconn, $sql);
+                        while($row = mysqli_fetch_assoc($query)) {
+                            $date = $row['start_date'];
+                            $year = explode('-', $date);
 
+                            echo("<option value='" . $row['SEID'] . "'>" . $row['season'] . " " . $year[0] . "</option>");
+                        }
+                    ?>
+                </select>
+
+                <p>Please enter the times that courses can run on each day:</p>
                 <table>
                     <tr>
                         <th>Days</th>
@@ -78,38 +78,51 @@
                         <td><input type="time" id="friday-end" name="friday-end"></td>
                     </tr>
                 </table>
-	<table id="courseTable">
-		<tr>
-			<th>CID</th>
-			<th>Title</th> 
-			<th>Course Short Name</th>
-			<th>Number of Credits</th>
-			<th>Contact Hours</th>
-			<th>Running?</th>
-		</tr>
-		
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><input type="checkbox" id="running" name="running" value="running"></td>
-	</table>
 
-				
-                <br><br>
+                <p>Please choose from the list of all courses, which courses will run this semester.</p>
+                <table id="courseTable" style="display:block; max-width:fit-content; overflow-y:auto; max-height:200px;">
+                    <tr>
+                        <th>Title</th> 
+                        <th>Course Short Name</th>
+                        <th>Number of Credits</th>
+                        <th>Contact Hours</th>
+                        <th>Running?</th>
+                    </tr>
+                    <?php 
+                        $sql = "SELECT * FROM `courses` WHERE is_active = '1'";
+                        $result = mysqli_query($dbconn, $sql);
+                        $numResults = mysqli_num_rows($result);
 
-                <label for="schedule-preference">Schedule-Start Preference:</label><br>		
-                <input type="radio" id="schedule-preference" name="schedule-preference" value="morning">
-                <label for="morning">Morning</label><br>
-                <input type="radio" id="schedule-preference" name="schedule-preference" value="afternoon">
-                <label for="afternoon">Afternoon</label><br>
-                <input type="radio" id="schedule-preference" name="schedule-preference" value="evening">
-                <label for="evening">Evening</label><br><br>
-
-                <label for="times">Course Padding (in minutes):</label>
+                        if($numResults < 1) {
+                            echo("<tr>
+                                <td colspan='10'>No Courses found</td>
+                                </tr>");
+                        }
+                        else {
+                            $rowNum = 0;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $courseID = $row['CID'];
+                                $courseName = $row['title'];
+                                $shortName = $row['short_name'];
+                                $isActive = $row['is_active'];
+                                $credits = $row['num_credits'];
+                                $contactHours = $row['contact_hours'];
+                                $semesterOffered = $row['semester_offered'];
+                        ?>
+                        <tr>
+                            <td><?php echo $courseName; ?></td>
+                            <td><?php echo $shortName; ?></td>
+                            <td><?php echo $credits; ?></td>
+                            <td><?php echo $contactHours; ?></td>
+                            <td><input type="checkbox" id="running" name="<?php echo $courseID; ?>" value="running"></td>
+                        </tr>
+                    <?php 
+                            }
+                        }
+                    ?>
+                </table>
                 <br>
+                <label for="times">Time between classes (in minutes):</label>
                 <input type="number" id="padding" name="padding" step="5">
                 <br><br>
                 
