@@ -1,3 +1,42 @@
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+
+
 <?php
     //Making the database connection
     include_once("./backend/db_connector.php");
@@ -52,9 +91,8 @@
     <h2>Search User</h2>
 
     <!-- Input field for the table search filter -->
-    <input id="userInput" type="text" placeholder="Enter User Here.."></input>
-    <button id="searchUser" type="button">Search</button>
-    <br><br>
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for user..">
+	<br><br>
 
     <!-- User Table - lists all users from the database. -->
     <table id="userTable">
@@ -121,8 +159,8 @@
     from the table instead of making another database call. -->
 <div id="myModal" class="modal">
 	<div class="modal-content">
-		<span class="close">&times;</span>
-		<h3>User</h3>
+		<span class="close" onclick="closeModal()">&times;</span>
+		<p class="title">Edit User</p>
         <form name="edit-user" method="post" action="./search.php?searchType=user">
             <input type="hidden" id="edit-uid" name="edit-uid">
 
@@ -135,7 +173,7 @@
             <br>
 
             <label for="edit-first-name">First Name:</label> 
-            <input type="text" name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
+            <input type="text"  name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
             <br>
 
             <label for="edit-last-name">Last Name:</label> 
@@ -178,11 +216,6 @@
                 ?>
             </select>
             <br>
-
-            <h3>Availability</h3>
-            <table id="availabilityTable">
-                
-            </table>
 
             <button type="submit" name="editUser" id="editUser" disabled>Save Changes</button>
             <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
@@ -244,8 +277,6 @@
             document.getElementById('usertype-select').value = 5;
             document.getElementById('usertype-select').innerText = editRow.cells[1].innerText;
         }
-        showAvailability(editRow.cells[0].innerText);
-        
     }
 
     // Only give the user the option to save changes if changes are made.
@@ -270,21 +301,28 @@
             modal.style.display = "none";
         }
     }
+</script>
 
-    //Function to show the courses available in a selected department.
-    function showAvailability(str) {
-        if (str == "") {
-            return;
-        } 
-        else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("availabilityTable").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "./backend/getAvailability.php?UID="+str, true);
-            xmlhttp.send();
-        }
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("userTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
     }
+  }
+}
 </script>
