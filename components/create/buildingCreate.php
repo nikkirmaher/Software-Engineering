@@ -1,5 +1,5 @@
 <div id="buildingCreate">
-    <p class = "title"> Create Building </p>
+    <h2>Create Building</h2>
     <form name="create-building" method="get" action="./create.php">
         <label id="create" for="create-building"> Building Name: </label> 
         <input type="text" placeholder="Enter Building Name Here.." name="create-building-name">
