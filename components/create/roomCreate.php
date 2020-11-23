@@ -3,7 +3,7 @@
 ?>
 
 <div id="roomCreate">
-  <h2> Create Room </p>
+  <h2>Create Room</h2>
   <form name="create-room" method="post" action="./create.php?createType=room">
     <label id="add" for="create-room">Building: </label>
     <select name="select-building" id="select-building">

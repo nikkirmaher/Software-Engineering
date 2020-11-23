@@ -115,7 +115,7 @@ th {
   padding: 10px;
   display: inline-table;
   color: white;
-  font-size: 25;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -170,33 +170,6 @@ th {
 
 /* Search Butttons */
 a
-{
-	width: auto;
-    padding: 7px;
-    color: white;
-    background-color: #013e7f;
-    cursor: pointer;
-}
-
-button#searchCourse
-{
-	width: auto;
-    padding: 7px;
-    color: white;
-    background-color: #013e7f;
-    cursor: pointer;
-}
-
-button#searchRoom
-{
-	width: auto;
-    padding: 7px;
-    color: white;
-    background-color: #013e7f;
-    cursor: pointer;
-}
-
-button#searchUser
 {
 	width: auto;
     padding: 7px;

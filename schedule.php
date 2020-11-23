@@ -1,7 +1,12 @@
 <?php
+    //Resuming the session
     if(!isset($_SESSION))
     {
         session_start();
+    }
+    //Checking if the user is signed in.
+    if(!isset($_SESSION['user'])) {
+        header("Location: index.php");
     }
 ?>
 
@@ -14,7 +19,7 @@
 
     <body>
         <!-- Header -->
-        <?php include_once('./html/header.html') ?>
+        <?php include_once('./components/header.php') ?>
         
         <!-- Navigation bar -->
         <?php include_once('./components/sidebar.php') ?>

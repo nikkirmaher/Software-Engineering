@@ -3,9 +3,10 @@
   if(!isset($_SESSION)) {
     session_start();
   }
-  if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-    //header("Location: dashboard.php");
-  }
+  //Checking if the user is signed in.
+  if(!isset($_SESSION['user'])) {
+	header("Location: index.php");
+}
 ?>
 
 <html>
@@ -20,7 +21,7 @@
 
 	<body>
 		<!-- Header -->
-		<?php include_once('./html/header.html') ?>
+		<?php include_once('./components/header.php') ?>
 		<!-- Navigation bar -->
 		<?php include_once('./components/sidebar.php') ?>
 
