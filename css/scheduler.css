@@ -132,7 +132,8 @@ th {
 
 .title
 {
-    padding: 1px;
+	padding: 1px;
+	color: #013e7f;
 	outline-color: white;
 	margin: auto;
     text-align: center;
