@@ -115,8 +115,8 @@ th {
 /* Content area, changes depending on active navlink */
 .content 
 {
-  margin-left: 200px; /* Same as the width of the sidebar */
-  margin-top: 90px; /* Same as the height of the header */
+  margin-left: 210px; /* Same as the width of the sidebar */
+  margin-top: 70px; /* Same as the height of the header */
   padding: 10px;
   display: inline-table;
   color: white;
