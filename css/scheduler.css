@@ -164,7 +164,15 @@ th {
 	border: 1px solid #888;
 	width: 80%;
 }
-  
+
+/* Submit Button */
+.submit
+{
+	color: white;
+    background-color: #013e7f;
+    font-size: 14;
+}
+
 /* The Close Button */
 .close {
 	color: #aaaaaa;
