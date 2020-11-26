@@ -16,14 +16,17 @@ body
   	background-color: #f58426;					/* background color for body of pages is always orange */
 }
 
-table {
+table 
+{
 	border-collapse: collapse;
 	background-color: navajowhite;
 }
-table, th, td {
+table, th, td 
+{
 	border: 1px solid black;					/* table text is black for all tables */
 }
-th {
+th 
+{
 	background-color: #013e7f;					/* table header background is blue for all tables */
 	color: white;								/* table header text color is white for all tables */
 }
@@ -34,7 +37,7 @@ th {
 	width: 100%;
     height: auto;
     position: fixed;
-    background-color: #013e7f;		/* the header that says "SUNY New Paltz" on top of page */
+    background-color: #013e7f;					/* the header that says "SUNY New Paltz" on top of page */
 }
 
 .scheduler-title
@@ -107,7 +110,8 @@ th {
   cursor: pointer;
 }
 
-.leftnav a.active {
+.leftnav a.active 
+{
   background-color: white;
   color: #013e7f;
 }
@@ -142,7 +146,8 @@ th {
 }
 
 /* The Modal (background) */
-.modal {
+.modal 
+{
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
@@ -157,7 +162,8 @@ th {
 }
   
 /* Modal Content */
-.modal-content {
+.modal-content 
+{
 	background-color: #013e7f;
 	margin: auto;
 	padding: 20px;
@@ -174,7 +180,8 @@ th {
 }
 
 /* The Close Button */
-.close {
+.close 
+{
 	color: #aaaaaa;
 	float: right;
 	font-size: 28px;
@@ -182,7 +189,8 @@ th {
 }
   
 .close:hover,
-.close:focus {
+.close:focus 
+{
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
@@ -209,22 +217,26 @@ a
 	margin-bottom: 12px;
   }
   
-  #myTable {
+  #myTable 
+  {
 	border-collapse: collapse;
 	width: 100%;
 	border: 1px solid #ddd;
 	font-size: 18px;
   }
   
-  #myTable th, #myTable td {
+  #myTable th, #myTable td 
+  {
 	text-align: left;
 	padding: 12px;
   }
   
-  #myTable tr {
+  #myTable tr 
+  {
 	border-bottom: 1px solid #ddd;
   }
   
-  #myTable tr.header, #myTable tr:hover {
+  #myTable tr.header, #myTable tr:hover 
+  {
 	background-color: #f1f1f1;
   }
