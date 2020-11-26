@@ -14,15 +14,16 @@
 
         $sql = "INSERT INTO `user_data` (`PID`, `email`, `password`, `first_name`, `last_name`, `max_credits`, `min_credits`, `program`) 
                     VALUES ('$permissions', '$email', '$password', '$firstname', '$lastname', '$maxcred', '$mincred', '$program')";
-
-        /* if ($dbconn->query($sql) === TRUE) {
+            
+        if ($dbconn->query($sql) === TRUE) {
             echo "User successfully added.";
         } 
         else {
             echo "Error adding new user: " . $sql . "<br>" . $dbconn->error;
-        } */
+        } 
+
         //Check if availability was provided
-        if($_POST['availability-rows'] > 0 ) {
+        if(isset($_POST['availability-rows']) && $_POST['availability-rows'] > 0 ) {
             $numberRows = $_POST['availability-rows'];
 
             $sql = "SELECT * FROM `user_data` WHERE `email` = '$email'";

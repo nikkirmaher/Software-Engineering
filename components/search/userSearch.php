@@ -1,42 +1,3 @@
-<head>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-</style>
-</head>
-
-
 <?php
     //Making the database connection
     include_once("./backend/db_connector.php");
@@ -92,7 +53,7 @@
 
     <!-- Input field for the table search filter -->
 	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for user..">
-	<br><br>
+    <br><br>
 
     <!-- User Table - lists all users from the database. -->
     <table id="userTable">
@@ -173,7 +134,7 @@
             <br>
 
             <label for="edit-first-name">First Name:</label> 
-            <input type="text"  name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
+            <input type="text" name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
             <br>
 
             <label for="edit-last-name">Last Name:</label> 
@@ -216,6 +177,11 @@
                 ?>
             </select>
             <br>
+
+            <h3>Availability</h3>
+            <table id="availabilityTable">
+                
+            </table>
 
             <button type="submit" name="editUser" id="editUser" disabled>Save Changes</button>
             <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
@@ -277,6 +243,8 @@
             document.getElementById('usertype-select').value = 5;
             document.getElementById('usertype-select').innerText = editRow.cells[1].innerText;
         }
+        showAvailability(editRow.cells[0].innerText);
+        
     }
 
     // Only give the user the option to save changes if changes are made.
@@ -301,9 +269,23 @@
             modal.style.display = "none";
         }
     }
-</script>
 
-<script>
+    //Function to show the courses available in a selected department.
+    function showAvailability(str) {
+        if (str == "") {
+            return;
+        } 
+        else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("availabilityTable").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "./backend/getAvailability.php?UID="+str, true);
+            xmlhttp.send();
+        }
+    }
 function myFunction() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -326,3 +308,4 @@ function myFunction() {
   }
 }
 </script>
+

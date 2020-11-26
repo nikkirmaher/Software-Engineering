@@ -80,6 +80,8 @@
                 </table>
 
                 <p>Please choose from the list of all courses, which courses will run this semester.</p>
+                <!-- Course Search -->
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for courses..">
                 <table id="courseTable" style="display:block; max-width:fit-content; overflow-y:auto; max-height:200px;">
                     <tr>
                         <th>Title</th> 
@@ -116,6 +118,7 @@
                             <td><?php echo $contactHours; ?></td>
                             <td><input type="checkbox" id="running" name="<?php echo $courseID; ?>" value="running"></td>
                         </tr>
+                        
                     <?php 
                             }
                         }
@@ -131,3 +134,27 @@
         </div>
     </body>
 </html>
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("courseTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
