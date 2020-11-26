@@ -115,13 +115,19 @@ th {
 /* Content area, changes depending on active navlink */
 .content 
 {
-  margin-left: 210px; /* Same as the width of the sidebar */
-  margin-top: 70px; /* Same as the height of the header */
-  padding: 10px;
-  display: inline-table;
-  color: white;
-  font-size: 25px;
-  font-weight: bold;
+	margin-left: 210px;
+    margin-top: 70px;
+    padding: 10px;
+    display: inline-table;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.h2
+{
+	font-size: 30;
+    font-weight: bold;
+    color: #013e7f;
 }
 
 .title
