@@ -57,13 +57,15 @@ th {
 /* Fixed Side Bar */
 .logout-button
 {
-	width: 100%;
-	padding: 7px;
-	margin-left: 50px;  
-	color: white;
-	font-size: 14px;
-	background-color: #013e7f;
-	cursor: pointer;
+	width: auto;
+    padding: 7px;
+    margin-left: 65px;
+    color: white;
+    font-size: 14px;
+    background-color: #013e7f;
+    cursor: pointer;
+    display: inline-block;
+    position: fixed;
 }
 
 .logout-form
