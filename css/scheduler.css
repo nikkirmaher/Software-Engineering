@@ -39,12 +39,14 @@ th {
 
 .scheduler-title
 {
-	position: fixed;							/* header title fixed so that it doesn't move when you scroll */
-	color: white;
-	font-weight: bolder;
-	font-size: 45px;
-	left: 300px;								/* adjusted to the left to save room for the New Paltz logo */
-	top: 0;
+	position: fixed;
+    width: 100%;
+    height: auto;
+    color: white;
+    font-weight: bolder;
+    font-size: 40;
+    left: 300px;
+    top: 0;
 }
 
 .logo
