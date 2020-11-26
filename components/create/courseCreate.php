@@ -11,10 +11,10 @@
 		$required_RID = $_POST['required_RID'];
 		$num_credits = $_POST['num_credits'];
 		$contact_hours = $_POST['contact_hours'];
-		$semester_offered = $_POST['semester_offered'];
+		$semester = $_POST['semester'];
 		
 		$sql = "INSERT INTO courses (`title`, `short_name`, `PROGRAM`, `is_active`, `required_RID`, `num_credits`, `contact_hours`, `semester_offered`)
-				VALUES ('$name', '$short_name', '$program', '$is_active','$required_RID', '$num_credits', '$contact_hours', '$semester_offered')";
+				VALUES ('$name', '$short_name', '$program', '$is_active','$required_RID', '$num_credits', '$contact_hours', '$semester')";
 
 		if ($dbconn->query($sql) === TRUE) {
 			echo "Course successfully created";
