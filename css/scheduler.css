@@ -12,8 +12,15 @@ body
 	margin: auto;
 	font-family: Arial, Helvetica, sans-serif;		/* Font is Arial for entire page */
 	justify-items: center;							/* items are centered on pages */
-  	align-items: center;
-  	background-color: #f58426;					/* background color for body of pages is always orange */
+	align-items: center;
+	background-color: #f58426;					/* background color for body of pages is always orange */
+}
+
+button {
+	padding: 7px;
+	color: white;
+	background-color: #013e7f;
+	cursor: pointer;
 }
 
 table 
@@ -59,6 +66,7 @@ th
     width: 200px;
 }
 
+	
 
 /* Fixed Side Bar */
 .logout-button
@@ -164,11 +172,11 @@ th
 /* Modal Content */
 .modal-content 
 {
-	background-color: #013e7f;
+	background-color: navajowhite;
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 80%;
+	width: fit-content;
 }
 
 /* Submit Button */
@@ -255,9 +263,6 @@ a
 	flex-basis: 100%;
 	flex: 1;
 }
-
-
-
 
 /* Search Styles */
 #myInput {
