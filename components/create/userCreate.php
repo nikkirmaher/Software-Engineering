@@ -1,56 +1,69 @@
-<?php 
-    include_once("./backend/db_connector.php");
+<?php
+    //Check to see if the user is signed in and has access to this information.
+    if(!isset($_SESSION['user'])) {
+        echo("Please sign in to view this content.");
+        exit();
+    }
+    else if($_SESSION['user_type'] == 'viewer') {
+        echo("<br>You do not have permission access to this information.");
+        exit();
+    }
+    else {
+        //Making the database connection
+        include_once("./backend/db_connector.php");
 
-    //If submit button is pressed.
-    if(isset($_POST['addUser'])) {
-        $permissions = $_POST['create-usertype'];
-        $email = $_POST['create-email'];
-        $password = $_POST['create-password'];
-        $firstname = $_POST['create-first-name'];
-        $lastname = $_POST['create-last-name'];
-        $maxcred = $_POST['create-max-credits'];
-        $mincred = $_POST['create-min-credits'];
-        $program = $_POST['create-program'];
+        //If submit button is pressed.
+        if(isset($_POST['addUser'])) {
+            $permissions = $_POST['create-usertype'];
+            $email = $_POST['create-email'];
+            $password = $_POST['create-password'];
+            $firstname = $_POST['create-first-name'];
+            $lastname = $_POST['create-last-name'];
+            $maxcred = $_POST['create-max-credits'];
+            $mincred = $_POST['create-min-credits'];
+            $program = $_POST['create-program'];
 
-        $sql = "INSERT INTO `user_data` (`PID`, `email`, `password`, `first_name`, `last_name`, `max_credits`, `min_credits`, `program`) 
-                    VALUES ('$permissions', '$email', '$password', '$firstname', '$lastname', '$maxcred', '$mincred', '$program')";
+            $sql = "INSERT INTO `user_data` (`PID`, `email`, `password`, `first_name`, `last_name`, `max_credits`, `min_credits`, `program`) 
+                        VALUES ('$permissions', '$email', '$password', '$firstname', '$lastname', '$maxcred', '$mincred', '$program')";
             
-        if ($dbconn->query($sql) === TRUE) {
-            echo "User successfully added.";
-        } 
-        else {
-            echo "Error adding new user: " . $sql . "<br>" . $dbconn->error;
-        } 
+            if ($dbconn->query($sql) === TRUE) {
+                echo "User successfully added.";
+            }
+            else {
+                echo "Error adding new user: " . $sql . "<br>" . $dbconn->error;
+            }
 
-        //Check if availability was provided
-        if(isset($_POST['availability-rows']) && $_POST['availability-rows'] > 0 ) {
-            $numberRows = $_POST['availability-rows'];
+            //Check if availability was provided
+            if(isset($_POST['availability-rows']) && $_POST['availability-rows'] > 0 ) {
+                $numberRows = $_POST['availability-rows'];
 
-            $sql = "SELECT * FROM `user_data` WHERE `email` = '$email'";
-            $query = mysqli_query($dbconn, $sql);
-            $row = mysqli_fetch_assoc($query);
+                $sql = "SELECT * FROM `user_data` WHERE `email` = '$email'";
+                $query = mysqli_query($dbconn, $sql);
+                $row = mysqli_fetch_assoc($query);
 
-            $userID = $row['UID'];
-            $semesterID = $_POST['semester'];
+                $userID = $row['UID'];
+                $semesterID = $_POST['semester'];
 
-            for($i = 1; $i < $numberRows; ++$i) {
-                $day = $_POST['day' . $i];
-                $startTime = $_POST['start' . $i];
-                $endTime = $_POST['end' . $i];
+                for($i = 1; $i < $numberRows; ++$i) {
+                    $day = $_POST['day' . $i];
+                    $startTime = $_POST['start' . $i];
+                    $endTime = $_POST['end' . $i];
                 
-                $sql = "INSERT INTO `user_schedule` (`UID`,`SEID`,`day`,`start_time`,`end_time`)
-                            VALUES ('$userID', '$semesterID', '$day', '$startTime', '$endTime')";
-                if ($dbconn->query($sql) === TRUE) {
-                    echo "";
-                }
-                else {
-                    echo "Error updating user availability: " . $sql . "<br>" . $dbconn->error;
-                    exit();
+                    $sql = "INSERT INTO `user_schedule` (`UID`,`SEID`,`day`,`start_time`,`end_time`)
+                                VALUES ('$userID', '$semesterID', '$day', '$startTime', '$endTime')";
+                    if ($dbconn->query($sql) === TRUE) {
+                        echo "";
+                    }
+                    else {
+                        echo "Error updating user availability: " . $sql . "<br>" . $dbconn->error;
+                        exit();
+                    }
                 }
             }
         }
     }
 ?>
+
 <div class="card">
 	<div class="card-header">
         <h2>Create User</h2>

@@ -1,41 +1,3 @@
-<head>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-</style>
-</head>
-
 <?php
 	//Making the database connection
 	include_once("./backend/db_connector.php");
@@ -64,12 +26,10 @@
 
 <div id="buildingSearch">
 	<h2>Search Building</h2>
-	
 	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for building..">
 
-
 	<!-- Building Table - lists all buildings from the database. -->
-	<table id="buildingTable">
+	<table class="search-table" id="buildingTable">
 		<tr>
 			<th>BID</th>
 			<th>Building Name</th>
@@ -114,20 +74,34 @@
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close"  onclick="closeModal()">&times;</span>
-		<p class="title">Edit Building</p>
+		<h2>Edit Building</h2>
 		<form name="edit-building" method="post" action="./search.php?searchType=building">
 			<input type="hidden" name="edit-bid" id="edit-bid"> 
-
-			<label for="edit-building-name"> Building Name: </label>
-			<input type="text" name="edit-building-name" id="edit-building-name" onkeyup="enableButton();">
-			<br>
 			
-			<label for="edit-building-abbreviation"> Building Abbreviation: </label>
-			<input type="text" name="edit-building-abbreviation" id="edit-building-abbreviation" onkeyup="enableButton();">
-			<br>
-
-			<button type="submit" name="editBuilding" id="editBuilding" disabled>Save Changes</button>
-            <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-building-name"> Building Name: </label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-building-name" id="edit-building-name" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-building-abbreviation"> Building Abbreviation: </label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-building-abbreviation" id="edit-building-abbreviation" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column" style="align-items: center;">
+					<button type="submit" name="editBuilding" id="editBuilding" disabled>Save Changes</button>
+				</div>
+				<div class="card-column" style="align-items: center;">
+					<button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

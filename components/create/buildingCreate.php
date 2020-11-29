@@ -19,6 +19,7 @@
         $dbconn->close();
     }
 ?>
+
 <div class="card">
 	<div class="card-header">
         <h2>Create Building</h2>

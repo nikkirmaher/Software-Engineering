@@ -1,41 +1,3 @@
-<head>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-</style>
-</head>
-
 <?php
 	include_once("./backend/db_connector.php");
 	//Edit Section
@@ -53,7 +15,7 @@
 		}
 		$numcredits = $_POST['edit-number-credits'];
 		$contacthours = $_POST['edit-contact-hours'];
-		$semester = $_POST['edit-semester-offered'];
+		$semester = $_POST['edit-semester'];
 		//SQL Update Statement for courseSearch form
 		$sql = "UPDATE `courses` 
 				SET  `title` = '$title', 
@@ -74,14 +36,15 @@
 		}
 	}
 ?>
+
 <div id="courseSearch">
 	<h2>Search Course</h2>
 
-<!-- Course Search -->
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for courses..">
-<br>
-<br>
-	<table id="courseTable">
+	<!-- Course Search -->
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for courses..">
+	<br>
+	<br>
+	<table class="search-table" id="courseTable">
 		<tr>
 			<th>CID</th>
 			<th>Title</th> 
@@ -137,62 +100,125 @@
 	?>
 	</table>
 </div>
+
 <!-- The view modal for a selected course, it uses the same form-layout 
     for creating courses and populates its fields with data from directly
     from the table instead of making another database call. -->
-	<div id="myModal" class="modal">
+<div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close" onclick="closeModal()">&times;</span>
-		<p class="title">Edit Course</p>
+		<h2>Edit Course</h2>
 		<form name="edit-course" method="post" action="./search.php?searchType=course">
 			<input type="hidden" name="edit-cid" id="edit-cid"> 
-
-			<label for="edit-title">title:</label>
-			<input type="text" name="edit-title" id="edit-title" onkeyup="enableButton();">
-			<br>
-			<label for="edit-short-name">Course Short Name:</label>
-			<input type="text" name="edit-short-name" id="edit-short-name" onkeyup="enableButton();">
-			<br>
-
-			Is this course active?<br>
-			<input type="radio" name="edit-active" id="edit-active-yes" value="1" onchange="enableButton();">
-			<label for="edit-active">Yes</label>
-			<input type="radio" name="edit-active" id="edit-active-no" value="0" onchange="enableButton();">
-			<label for="edit-active">No</label>
-			<br>
-
-			<label for="edit-program">Program:</label>
-			<input type="text" name="edit-program" id="edit-program" onkeyup="enableButton();">
-			<br>
-
-			<label for="edit-required">If this Course Requires a specific room please choose that room.</label><br>
-			<select name="edit-required" id="edit-required" onchange="enableButton();">
-				<option id="requiredRoom" value=""></option>
-				<?php
-                    $sql = "SELECT * FROM `rooms`";
-                    $query = mysqli_query($dbconn, $sql);
-                    while($row = mysqli_fetch_assoc($query)) {
-                        echo("<option value='" . $row['RID'] . "'>" . $row['short_name'] . "</option>");
-                    }
-                ?>
-			</select>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-title">Course Title:</label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-title" id="edit-title" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-short-name">Course Short Name:</label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-short-name" id="edit-short-name" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-program">Program:</label>
+				</div>
+				<div class="card-column">
+					<select id="edit-program" name="edit-program">
+						<option value="">Please select the program</option>
+						<?php
+							$sql = "SELECT * FROM `programs`";
+							$query = mysqli_query($dbconn, $sql);
+							while($row = mysqli_fetch_assoc($query)) {
+								echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
+							}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-semester">Semester:</label>
+				</div>
+				<div class="card-column">
+					<select name="edit-semester" id="edit-semester">
+						<option value="">Please select the semester</option>
+						<?php
+							$sql = "SELECT * FROM `semester`";
+							$query = mysqli_query($dbconn, $sql);
+							while($row = mysqli_fetch_assoc($query)) {
+								$date = $row['start_date'];
+								$year = explode('-', $date);
 			
-			<br>
-
-			<label for="edit-number-credits">Number Of Credits:</label>
-			<input type="number" name="edit-number-credits" id="edit-number-credits" onchange="enableButton();">
-			<br>
-
-			<label for="edit-contact-hours">Contact Hours:</label>
-			<input type="number" name="edit-contact-hours" id="edit-contact-hours" onchange="enableButton();">
-			<br>
-
-			<label for="edit-semester-offered">Semester Offered:</label>
-			<input type="number" name="edit-semester-offered" id="edit-semester-offered" onchange="enableButton();">
-			<br>
-
-			<button type="submit" name="editCourse" id="editCourse" disabled>Save Changes</button>
-            <button type="reset" name="reset" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+								echo("<option value='" . $row['SEID'] . "'>" . $row['season'] . " " . $year[0] . "</option>");
+							}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-required">If this Course Requires a specific room please choose that room.</label><br>
+				</div>
+				<div class="card-column">
+					<select name="edit-required" id="edit-required" onchange="enableButton();">
+						<option id="requiredRoom" value=""></option>
+						<?php
+							$sql = "SELECT * FROM `rooms`";
+							$query = mysqli_query($dbconn, $sql);
+							while($row = mysqli_fetch_assoc($query)) {
+								echo("<option value='" . $row['RID'] . "'>" . $row['short_name'] . "</option>");
+							}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-number-credits">Number Of Credits:</label>
+				</div>
+				<div class="card-column">
+					<input type="number" name="edit-number-credits" id="edit-number-credits" onchange="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-contact-hours">Contact Hours:</label>
+				</div>
+				<div class="card-column">
+					<input type="number" name="edit-contact-hours" id="edit-contact-hours" onchange="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="create-course">Will this course be active this semester?</label>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column" style="flex-direction:row;">
+					<input type="radio" name="edit-active" id="edit-active-yes" value="1" onchange="enableButton();">
+					<label for="edit-active">Yes</label>
+				</div>
+				<div class="card-column" style="flex-direction:row;">
+					<input type="radio" name="edit-active" id="edit-active-no" value="0" onchange="enableButton();">
+					<label for="edit-active">No</label>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column" style="align-items: center;">
+					<button type="submit" name="editCourse" id="editCourse" disabled>Save Changes</button>
+				</div>
+				<div class="card-column" style="align-items: center;">
+					<button type="reset" name="reset" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>
@@ -243,7 +269,7 @@
 		document.getElementById('requiredRoom').innerText = editRow.cells[5].innerText;
 		document.getElementById('edit-number-credits').value = editRow.cells[6].innerText;
 		document.getElementById('edit-contact-hours').value = editRow.cells[7].innerText;
-		document.getElementById('edit-semester-offered').value = editRow.cells[8].innerText;
+		document.getElementById('edit-semester').value = editRow.cells[8].innerText;
 	}
 	//Display Delete Modal
 	function displayModal2()

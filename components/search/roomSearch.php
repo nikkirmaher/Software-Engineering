@@ -1,42 +1,3 @@
-<head>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-</style>
-</head>
-
-
 <?php
 	//Making the database connection
 	include_once("./backend/db_connector.php");
@@ -78,7 +39,7 @@
 	<br><br>
 
 	<!-- Room table - lists all rooms from the database. -->
-	<table id="roomTable">
+	<table class="search-table" id="roomTable">
 	<tr>
 		<th>RID</th>
 		<th>BID</th>
@@ -135,41 +96,79 @@
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close" onclick="closeModal()">&times;</span>
-		<p class="title">Edit Room</p>
+		<h2>Edit Room</h2>
 		<form name="edit-room" method="post" action="./search.php?searchType=room">
 			<input type="hidden" name="edit-rid" id="edit-rid"> 
-
-			<label for="edit-bid">Building:</label>
-			<input type="text" name="edit-bid" id="edit-bid" onkeyup="enableButton();">
-			<br>
-			<label for="edit-room-number">Room Number:</label>
-			<input type="text" name="edit-room-number" id="edit-room-number" onkeyup="enableButton();">
-			<br>
-			<label for="edit-short-name">Room Short Name:</label>
-			<input type="text" name="edit-short-name" id="edit-short-name" onkeyup="enableButton();">
-			<br>
-
-			Is this room Required by any courses?<br>
-			<input type="radio" name="edit-required" id="edit-required-yes" value="1" onchange="enableButton();">
-			<label for="edit-required">Yes</label>
-			<input type="radio" name="edit-required" id="edit-required-no" value="0" onchange="enableButton();">
-			<label for="edit-required">No</label>
-			<br>
-
-			Is this room Exclusively for any courses?<br>
-			<input type="radio" name="edit-exclusive" id="edit-exclusive-yes" value="1" onchange="enableButton();">
-			<label for="edit-exclusive-yes">Yes</label>
-			<input type="radio" name="edit-exclusive" id="edit-exclusive-no" value="0" onchange="enableButton();">
-			<label for="edit-exclusive-no">No</label>
-			<br>
-
-			
-			<label for="edit-max-seats">Max Seats:</label>
-			<input type="number" name="edit-max-seats" id="edit-max-seats" onchange="enableButton();">
-			<br>
-
-			<button type="submit" name="editRoom" id="editRoom" disabled>Save Changes</button>
-            <button type="reset" name="reset" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-bid">Building:</label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-bid" id="edit-bid" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-room-number">Room Number:</label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-room-number" id="edit-room-number" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-short-name">Room Short Name:</label>
+				</div>
+				<div class="card-column">
+					<input type="text" name="edit-short-name" id="edit-short-name" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					<label for="edit-max-seats">Max Seats:</label>
+				</div>
+				<div class="card-column">
+					<input type="number" name="edit-max-seats" id="edit-max-seats" onchange="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					Is this room Required by any courses?<br>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column" style="flex-direction:row;">
+					<input type="radio" name="edit-required" id="edit-required-yes" value="1" onchange="enableButton();">
+					<label for="edit-required">Yes</label>
+				</div>
+				<div class="card-column" style="flex-direction:row;">
+					<input type="radio" name="edit-required" id="edit-required-no" value="0" onchange="enableButton();">
+					<label for="edit-required">No</label>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+					Is this room Exclusively for any courses?<br>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column" style="flex-direction:row;">
+					<input type="radio" name="edit-exclusive" id="edit-exclusive-yes" value="1" onchange="enableButton();">
+					<label for="edit-exclusive-yes">Yes</label>
+				</div>
+				<div class="card-column" style="flex-direction:row;">
+					<input type="radio" name="edit-exclusive" id="edit-exclusive-no" value="0" onchange="enableButton();">
+					<label for="edit-exclusive-no">No</label>
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column" style="align-items: center;">
+					<button type="submit" name="editRoom" id="editRoom" disabled>Save Changes</button>
+				</div>
+				<div class="card-column" style="align-items: center;">
+					<button type="reset" name="reset" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

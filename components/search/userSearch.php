@@ -1,49 +1,72 @@
 <?php
-    //Making the database connection
-    include_once("./backend/db_connector.php");
-    
-    //PHP for gathering the user input and updating the record in the database.
-    if(isset($_POST['editUser'])) {
-        $UID = $_POST['edit-uid'];
-        $PID = $_POST['edit-usertype'];
-        $email = $_POST['edit-email'];
-        $password = $_POST['edit-password'];
-        $firstname = $_POST['edit-first-name'];
-        $lastname = $_POST['edit-last-name'];
-        $maxcred = $_POST['edit-max-credits'];
-        $mincred = $_POST['edit-min-credits'];
-        $program = $_POST['edit-program'];
-        
-        $sql = "UPDATE `user_data`
-            SET `PID` = '$PID', 
-                `email` = '$email', 
-                `password` = '$password', 
-                `first_name` = '$firstname', 
-                `last_name` = '$lastname', 
-                `max_credits` = '$maxcred', 
-                `min_credits` = '$mincred', 
-                `PROGRAM` = '$program'
-            WHERE `UID` = $UID";
-
-        if ($dbconn->query($sql) === TRUE) {
-            echo "User edited successfully";
-        } 
-        else {
-            echo "Error: " . $sql . "<br>" . $dbconn->error;
-        }
+    //Check to see if the user is signed in and has access to this information.
+    if(!isset($_SESSION['user'])) {
+        echo("Please sign in to view this content.");
+        exit();
     }
-    else if(isset($_POST['removeUser'])) {
-        /*  PHP for removing the selected user from the database.
-        Alternatively, we could set the user to a new "terminated" 
-        permission type keeping their record. */
-        $sql = "UPDATE `user_data` 
-            SET `PID` = 4
-            WHERE `UID` = $UID";
-        if ($dbconn->query($sql) === TRUE) {
-            echo "User terminated successfully.";
-        } 
-        else {
-            echo "Error: " . $sql . "<br>" . $dbconn->error;
+    else if($_SESSION['user_type'] == 'viewer') {
+        echo("<br>You do not have permission access to this information.");
+        exit();
+    }
+    else {
+        //Making the database connection
+        include_once("./backend/db_connector.php");
+        
+        //Check if the user arrived here from submitting the edit user or delete user form.
+        if(isset($_POST['editUser'])) {
+            $UID = $_POST['edit-uid'];
+            $PID = $_POST['edit-usertype'];
+            $email = $_POST['edit-email'];
+            $password = $_POST['edit-password'];
+            $firstname = $_POST['edit-first-name'];
+            $lastname = $_POST['edit-last-name'];
+            $maxcred = $_POST['edit-max-credits'];
+            $mincred = $_POST['edit-min-credits'];
+            $program = $_POST['edit-program'];
+            
+            $sql = "UPDATE `user_data`
+                SET `PID` = '$PID', 
+                    `email` = '$email', 
+                    `password` = '$password', 
+                    `first_name` = '$firstname', 
+                    `last_name` = '$lastname', 
+                    `max_credits` = '$maxcred', 
+                    `min_credits` = '$mincred', 
+                    `PROGRAM` = '$program'
+                WHERE `UID` = $UID";
+    
+            if ($dbconn->query($sql) === TRUE) {
+                echo "User edited successfully";
+            } 
+            else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+            }
+        }
+        else if(isset($_POST['removeUser'])) {
+            /*  PHP for removing the selected user from the database.
+                First, it has to delete foriegn key references, so the user's schedules are removed.
+
+                Alternatively, we could set the user to a new "terminated" permission type keeping 
+                their record but disallowing them to sign in or be scheduled. */
+    
+            $UID=$_POST['userID'];
+    
+            $sql = "DELETE FROM `user_schedule` WHERE `UID` = $UID";
+            if ($dbconn->query($sql) === TRUE) {
+                echo "<br>User's schedules removed successfully. ";
+            } 
+            else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+            }
+
+            $sql = "DELETE FROM `user_data` WHERE `UID` = $UID";
+
+            if ($dbconn->query($sql) === TRUE) {
+                echo "User removed successfully.";
+            } 
+            else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+            }
         }
     }
 ?>
@@ -56,7 +79,7 @@
     <br><br>
 
     <!-- User Table - lists all users from the database. -->
-    <table id="userTable">
+    <table class="search-table" id="userTable">
         <tr>
             <th>UID</th>
             <th>User Type</th>
@@ -106,7 +129,7 @@
             <td><?php echo $mincred; ?></td>
             <td><?php echo $program; ?></td>
             <td><button type="button" onclick="displayModal(<?php echo ++$rowNum; ?>, 'userTable')">View</button></td>
-			<td><button type="button" onclick="displayModal2()">Delete</button></td>
+			<td><button type="button" onclick="displayModal2(<?php echo $UID; ?>)">Delete</button></td>
         </tr>
         <?php 
                 } 
@@ -121,93 +144,130 @@
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close" onclick="closeModal()">&times;</span>
-		<p class="title">Edit User</p>
+        <h2>Edit User</h2>
         <form name="edit-user" method="post" action="./search.php?searchType=user">
             <input type="hidden" id="edit-uid" name="edit-uid">
-
-            <label for="edit-email">Email:</label> 
-            <input type="email" name="edit-email" id="edit-email" onkeyup="enableButton();">
-            <br>
-
-            <label for="edit-password">Password:</label> 
-            <input type="password" name="edit-password" id="edit-password" onkeyup="enableButton();">
-            <br>
-
-            <label for="edit-first-name">First Name:</label> 
-            <input type="text" name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
-            <br>
-
-            <label for="edit-last-name">Last Name:</label> 
-            <input type="text" name="edit-last-name" id="edit-last-name" onkeyup="enableButton();">
-            <br>
-            
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="edit-email">Email:</label> 
+				</div>
+				<div class="card-column">
+                    <input type="email" name="edit-email" id="edit-email" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="edit-password">Password:</label> 
+				</div>
+				<div class="card-column">
+                    <input type="password" name="edit-password" id="edit-password" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="edit-first-name">First Name:</label> 
+				</div>
+				<div class="card-column">
+                    <input type="text" name="edit-first-name" id="edit-first-name" onkeyup="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="edit-last-name">Last Name:</label> 
+				</div>
+				<div class="card-column">
+                    <input type="text" name="edit-last-name" id="edit-last-name" onkeyup="enableButton();">
+				</div>
+            </div>
             <!-- Min and Max credits are used to determine if the user is full or part time. -->
-            <label for="edit-max-credits">Max Credits:</label> 
-            <input type="number" name="edit-max-credits" id="edit-max-credits" onchange="enableButton();">
-            <br>
-
-            <label for="edit-min-credits">Min Credits:</label> 
-            <input type="number" name="edit-min-credits" id="edit-min-credits" onchange="enableButton();">
-            <br>
-
-            <!-- This select lists all possible user types from the permissions database table. -->
-            <label for="edit-usertype">User Type:</label>
-            <select name="edit-usertype" id="edit-usertype" onchange="enableButton();">
-                <option id="usertype-select" value=""></option>
-                <?php
-                    $sql = "SELECT * FROM `permissions`";
-                    $query = mysqli_query($dbconn, $sql);
-                    while($row = mysqli_fetch_assoc($query)) {
-                        echo("<option value='" . $row['PID'] . "'>" . $row['user_type'] . "</option>");
-                    }
-                ?>
-            </select>
-            <br>
-
-            <!-- This select lists all possible programs from the programs database table. -->
-            <label for="edit-program">Program:</label>
-            <select name="edit-program" id="edit-program" onchange="enableButton();">
-                <option id="program-select" value=""></option>
-                <?php
-                    $sql = "SELECT * FROM `programs`";
-                    $query = mysqli_query($dbconn, $sql);
-                    while($row = mysqli_fetch_assoc($query)) {
-                        echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
-                    }
-                ?>
-            </select>
-            <br>
-
-            <h3>Availability</h3>
-            <table id="availabilityTable">
-                
-            </table>
-
-            <button type="submit" name="editUser" id="editUser" disabled>Save Changes</button>
-            <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="edit-max-credits">Max Credits:</label> 
+				</div>
+				<div class="card-column">
+                    <input type="number" name="edit-max-credits" id="edit-max-credits" onchange="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="edit-min-credits">Min Credits:</label> 
+				</div>
+				<div class="card-column">
+                    <input type="number" name="edit-min-credits" id="edit-min-credits" onchange="enableButton();">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <!-- This select lists all possible user types from the permissions database table. -->
+                    <label for="edit-usertype">User Type:</label>
+                </div>
+				<div class="card-column">
+                    <select name="edit-usertype" id="edit-usertype" onchange="enableButton();">
+                        <option id="usertype-select" value=""></option>
+                        <?php
+                            $sql = "SELECT * FROM `permissions`";
+                            $query = mysqli_query($dbconn, $sql);
+                            while($row = mysqli_fetch_assoc($query)) {
+                                echo("<option value='" . $row['PID'] . "'>" . $row['user_type'] . "</option>");
+                            }
+                        ?>
+                    </select>
+                </div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <!-- This select lists all possible programs from the programs database table. -->
+                    <label for="edit-program">Program:</label>
+				</div>
+				<div class="card-column">
+                    <select name="edit-program" id="edit-program" onchange="enableButton();">
+                        <option id="program-select" value=""></option>
+                        <?php
+                            $sql = "SELECT * FROM `programs`";
+                            $query = mysqli_query($dbconn, $sql);
+                            while($row = mysqli_fetch_assoc($query)) {
+                                echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
+                            }
+                        ?>
+                    </select>
+                </div>
+			</div>
+            <div class="card-row">
+                <div class="card-column" style="align-items: center;">
+                    <button type="submit" name="editUser" id="editUser" disabled>Save Changes</button>
+                </div>
+                <div class="card-column" style="align-items: center;">
+                    <button type="button" name="cancel" onclick="document.getElementById('myModal').style.display = 'none';">Cancel</button>
+                </div>
+            </div>
         </form>
+            
+        <h3>Availability</h3>
+        <table id="availabilityTable">
+        </table>
     </div>
 </div>
 
 <div id="myModal2" class="modal">
-
 	<div class="modal-content">
-      <span class="close" onclick="closeModal()">×</span>
-	  <div class="modal-text" id="modal2-text">
-      <h2>Delete</h2>
-    
-      <p>Are you sure you want to delete?</p>
-	  <button type="button">Yes, delete</button>
-	  <button type="button" onclick="closeModal()">No, do not delete</button>
-	  </div>
-  </div>
-
+        <span class="close" onclick="closeModal()">×</span>
+        <div class="modal-text" id="modal2-text">
+            <h2>Delete</h2>
+            <p>Are you sure you want to delete?</p>
+            <form action="./search.php?searchType=user" method="POST">
+                <input type="hidden" name="userID" id="userID">
+                <button type="submit" name="removeUser">Yes, delete</button>
+                <button type="button" onclick="closeModal()">No, do not delete</button>
+            </form>
+	    </div>
+    </div>
 </div>	
 
 <script>
-    //Get the modal
+    //Get the modals
 	var modal = document.getElementById("myModal");
 	var modal2 = document.getElementById("myModal2");
+
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
 
@@ -244,22 +304,18 @@
             document.getElementById('usertype-select').innerText = editRow.cells[1].innerText;
         }
         showAvailability(editRow.cells[0].innerText);
-        
     }
-
     // Only give the user the option to save changes if changes are made.
     function enableButton() {
         document.getElementById('editUser').disabled = false;
     }
 	//Display Delete Modal
-	function displayModal2()
-	{
+	function displayModal2(userID){
 		modal2.style.display = "block";
+        document.getElementById("userID").value = userID;
 	}
-
 	// When the user clicks on <span> (x), close the modal
-	function closeModal()
-	{
+	function closeModal() {
 		modal.style.display = "none";
 		modal2.style.display = "none";
 	}
@@ -269,7 +325,6 @@
             modal.style.display = "none";
         }
     }
-
     //Function to show the courses available in a selected department.
     function showAvailability(str) {
         if (str == "") {
@@ -286,26 +341,27 @@
             xmlhttp.send();
         }
     }
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("userTable");
-  tr = table.getElementsByTagName("tr");
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("userTable");
+        tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } 
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     }
-  }
-}
 </script>
-

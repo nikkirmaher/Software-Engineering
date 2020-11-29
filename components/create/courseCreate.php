@@ -23,7 +23,7 @@
 			echo "Error: " . $sql . "<br>" . $dbconn->error;
 		}
 	}
-	?>
+?>
 
 
 <div class="card">
