@@ -34,7 +34,10 @@
                         $email = $_POST['email'];
                         $password = $_POST['password'];
 
-                        $sql = "SELECT * FROM `user_data` WHERE `email` = '$email' AND `password` = '$password'";
+                        $sql = "SELECT * FROM `user_data` 
+                                    JOIN `permissions`
+                                        ON `user_data`.PID = `permissions`.PID
+                                WHERE `email` = '$email' AND `password` = '$password'";
                         $result = mysqli_query($dbconn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $count = mysqli_num_rows($result);
@@ -43,6 +46,7 @@
                             //Validate user credentials.
                             $_SESSION['user'] = $email;
                             $_SESSION['user_name'] = $row['first_name'] . " " . $row['last_name'];
+                            $_SESSION['user_type'] = $row['user_type'];
                             header("Location: home.php");
                         }
                         else {
