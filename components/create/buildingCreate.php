@@ -19,17 +19,33 @@
         $dbconn->close();
     }
 ?>
-<div id="buildingCreate">
-    <h2>Create Building</h2>
-    <form name="create-building" method="post" action="./create.php?createType=building">
-        <label id="create" for="create-building"> Building Name: </label> 
-        <input type="text" placeholder="Enter Building Name Here.." name="create-building-name">
-        <br>
-
-        <label id="create" for="create-building"> Building Abbreviation: </label> 
-        <input type="text" placeholder="Enter Building Abbreviation Here.." name="create-building-abbreviation">
-        <br>
-        
-        <button type="submit" name="addBuilding">Create Building</button>
-    </form>
+<div class="card">
+	<div class="card-header">
+        <h2>Create Building</h2>
+	</div>
+	<div class="card-content">
+        <form name="create-building" method="post" action="./create.php?createType=building">
+			<div class="card-row">
+				<div class="card-column">
+                    <label id="create" for="create-building"> Building Name: </label> 
+				</div>
+				<div class="card-column">
+                    <input type="text" placeholder="Enter Building Name Here.." name="create-building-name">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label id="create" for="create-building"> Building Abbreviation: </label> 
+				</div>
+				<div class="card-column">
+                    <input type="text" placeholder="Enter Building Abbreviation Here.." name="create-building-abbreviation">
+				</div>
+            </div>
+			<div class="card-row">
+				<div class="card-column" style="align-items: center;">
+                    <button type="submit" name="addBuilding">Create Building</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>

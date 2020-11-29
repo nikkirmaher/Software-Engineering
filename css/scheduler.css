@@ -206,6 +206,59 @@ a
     cursor: pointer;
 }
 
+/* The card is used to organize the create forms, it uses flexbox */
+.card {
+	background-color: navajowhite;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid black;
+	margin-top: 16px;
+}
+
+.card-header h2{
+	background-color: #013e7f;
+	color: white;
+	border-bottom: 1px solid black;
+	margin: 0px;
+	text-align: center;
+}
+
+.card-content {
+	padding: 16px;
+	display: flex;
+}
+
+.card-content button{
+    padding: 7px;
+    color: white;
+    background-color: #013e7f;
+	cursor: pointer;
+	position: fixed;
+}
+
+/* The position attribute in the table data element inside of a card must be
+	set to relative to display with the proper position */
+.card-content td button{
+	position: relative;
+}
+
+.card-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 10px;
+  }
+
+.card-column{
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+
+
+
+
 /* Search Styles */
 #myInput {
 	background-position: 10px 10px;

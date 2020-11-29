@@ -51,114 +51,191 @@
         }
     }
 ?>
-<div id="userCreate">
-    <form name="create-user" method="post" action="./create.php?createType=user">
-        <div>
-            <h2>Create User</h2>
-            <label for="create-email">Email:</label>
-            <input type="email" placeholder="Enter user's email here.." name="create-email">
-            <br>
-            <label for="create-password">Password:</label>
-            <input type="password" placeholder="Enter password here.." name="create-password">
-            <br>
-            <label for="create-first-name">First Name:</label>
-            <input type="text" placeholder="Enter user's first name here.." name="create-first-name">
-            <br>
-            <label for="create-last-name">Last Name:</label>
-            <input type="text" placeholder="Enter user's last name here.." name="create-last-name">
-            <br>
-            <!-- Min and Max credits are used to determine if the user is full or part time. -->
-            <label for="create-max-credits">Max Credits:</label>
-            <input type="number" placeholder="Credit-Hour Maximum" name="create-max-credits">
-            <br>
-            <label for="create-min-credits">Min Credits:</label>
-            <input type="number" placeholder="Credit-Hour Minimum" name="create-min-credits">
-            <br>
-            <!-- This select lists all possible user types from the permissions database table. -->
-            <label for="create-usertype">User Type:</label>
-            <select name="create-usertype" id="create-usertype">
-                <option value="">Please select the user type.</option>
-                <?php
-                    $sql = "SELECT * FROM `permissions`";
-                    $query = mysqli_query($dbconn, $sql);
-                    while($row = mysqli_fetch_assoc($query)) {
-                        echo("<option value='" . $row['PID'] . "'>" . $row['user_type'] . "</option>");
-                    }
-                ?>
-            </select>
-            <br>
-            <!-- This select lists all possible programs from the programs database table. -->
-            <label for="create-program">Program:</label>
-            <select name="create-program" id="create-program">
-                <option value="">Please select a program</option>
-                <?php
-                    $sql = "SELECT * FROM `programs`";
-                    $query = mysqli_query($dbconn, $sql);
-                    while($row = mysqli_fetch_assoc($query)) {
-                        echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
-                    }
-                ?>
-            </select>
-            <br>
-        </div>
+<div class="card">
+	<div class="card-header">
+        <h2>Create User</h2>
+	</div>
+	<div class="card-content">
+        <form name="create-user" method="post" action="./create.php?createType=user">
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="create-email">Email:</label>
+				</div>
+				<div class="card-column">
+                    <input type="email" placeholder="Enter user's email here.." name="create-email">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="create-password">Password:</label>
+				</div>
+				<div class="card-column">
+                    <input type="password" placeholder="Enter password here.." name="create-password">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="create-first-name">First Name:</label>
+				</div>
+				<div class="card-column">
+                    <input type="text" placeholder="Enter user's first name here.." name="create-first-name">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="create-last-name">Last Name:</label>
+				</div>
+				<div class="card-column">
+                    <input type="text" placeholder="Enter user's last name here.." name="create-last-name">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <!-- Min and Max credits are used to determine if the user is full or part time. -->
+                    <label for="create-max-credits">Max Credits:</label>
+				</div>
+				<div class="card-column">
+                    <input type="number" placeholder="Credit-Hour Maximum" name="create-max-credits">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <label for="create-min-credits">Min Credits:</label>
+				</div>
+				<div class="card-column">
+                    <input type="number" placeholder="Credit-Hour Minimum" name="create-min-credits">
+				</div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <!-- This select lists all possible user types from the permissions database table. -->
+                    <label for="create-usertype">User Type:</label>
+				</div>
+				<div class="card-column">
+                    <select name="create-usertype" id="create-usertype">
+                        <option value="">Please select the user type.</option>
+                        <?php
+                            $sql = "SELECT * FROM `permissions`";
+                            $query = mysqli_query($dbconn, $sql);
+                            while($row = mysqli_fetch_assoc($query)) {
+                                echo("<option value='" . $row['PID'] . "'>" . $row['user_type'] . "</option>");
+                            }
+                        ?>
+                    </select>
+                </div>
+			</div>
+			<div class="card-row">
+				<div class="card-column">
+                    <!-- This select lists all possible programs from the programs database table. -->
+                    <label for="create-program">Program:</label>
+				</div>
+				<div class="card-column">
+                    <select name="create-program" id="create-program">
+                        <option value="">Please select a program</option>
+                        <?php
+                            $sql = "SELECT * FROM `programs`";
+                            $query = mysqli_query($dbconn, $sql);
+                            while($row = mysqli_fetch_assoc($query)) {
+                                echo("<option value='" . $row['PROGRAM'] . "'>" . $row['PROGRAM'] . "</option>");
+                            }
+                        ?>
+                    </select>
+                </div>
+			</div>
 
-        <div id="userAvailability" style="display: none;">
-            <h2>User Availability</h2>
-            <label for="semester">Semester:</label>
-            <select name="semester" id="semester">
-                <option value="">Please select the semester</option>
-                <?php
-                    $sql = "SELECT * FROM `semester`";
-                    $query = mysqli_query($dbconn, $sql);
-                    while($row = mysqli_fetch_assoc($query)) {
-                        $date = $row['start_date'];
-                        $year = explode('-', $date);
+            <div id="userAvailability" style="display: none;">
+                <div class="card-header">
+                    <h2>User Availability</h2>
+                </div>
+                <br>
+                <div class="card-row">
+                    <div class="card-column">
+                        <label for="semester">Semester:</label>
+                    </div>
+                    <div class="card-column">
+                        <select name="semester" id="semester">
+                            <option value="">Please select the semester</option>
+                            <?php
+                                $sql = "SELECT * FROM `semester`";
+                                $query = mysqli_query($dbconn, $sql);
+                                while($row = mysqli_fetch_assoc($query)) {
+                                    $date = $row['start_date'];
+                                    $year = explode('-', $date);
 
-                        echo("<option value='" . $row['SEID'] . "'>" . $row['season'] . " " . $year[0] . "</option>");
-                    }
-                ?>
-            </select>
+                                    echo("<option value='" . $row['SEID'] . "'>" . $row['season'] . " " . $year[0] . "</option>");
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-column">
+                        <label for="available-day">Day Available:</label>
+                    </div>
+                    <div class="card-column">
+                        <select name="available-day" id="available-day">
+                            <option value="">Please choose a day.</option>
+                            <option value="Sunday">Sunday</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-column">
+                        <label for="startTime">Start Time:</label>
+                    </div>
+                    <div class="card-column">
+                        <input type="time" name="startTime" id="startTime">
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-column">
+                        <label for="endTime">End Time:</label>
+                    </div>
+                    <div class="card-column">
+                        <input type="time" name="endTime" id="endTime">
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-column" style="align-items: center;">
+                        <button type="button" onclick='addAvailability()'>Add</button>
+                    </div>
+                </div>
+                <br><br>
+                <div>
+                    <input type="hidden" name="availability-rows" id="availability-rows" value=0>
+                    <table name="availability-table" id="availability-table" style="width: 100%">
+                        <tr>
+                            <th>Day</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <br>
-            <label for="available-day">Day Available:</label>
-            <select name="available-day" id="available-day">
-                <option value="">Please choose a day.</option>
-                <option value="Sunday">Sunday</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-            </select>
-            <label for="startTime">Start Time</label>
-            <input type="time" name="startTime" id="startTime">
-            <label for="endTime">End Time</label>
-            <input type="time" name="endTime" id="endTime">
-            <button type="button" onclick='addAvailability()'>Add</button>
-            <br><br>
-
-            <input type="hidden" name="availability-rows" id="availability-rows" value=0>
-            <table name="availability-table" id="availability-table">
-                <tr>
-                    <th>Day</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>
-                </tr>
-            </table>
-            <br><br>
-        </div>
-
-        <button type="submit" name="addUser">Create User</button>
-        <button type="button" id="showAvailability" onclick="document.getElementById('userAvailability').style.display='block';">Add Availability</button>
-    </form>
+            <div class="card-row">
+                <div class="card-column" style="align-items: center;">
+                    <button type="submit" name="addUser">Create User</button>
+                </div>
+                <div class="card-column" style="align-items: center;">
+                    <button type="button" id="showAvailability" onclick="document.getElementById('userAvailability').style.display='block';">Add Availability</button>
+                </div>
+            </div>
+        </form>
+	</div>
 </div>
 
 <script>
     //function for adding the selected availability information to the availability table
     function addAvailability() {
-        document.getElementById('showAvailability').style.display='none';
-        
+        document.getElementById('showAvailability').style.display='none';      
         var semester = document.getElementById('semester').value;
         var dayAvail = document.getElementById('available-day').value;
         var startTime = document.getElementById('startTime').value;
@@ -199,6 +276,7 @@
             var removeButton = document.createElement("BUTTON");
             removeButton.setAttribute("type", "button");
             removeButton.setAttribute("onclick", "removeRow(" + rowNumber + ")");
+            removeButton.setAttribute("position", "relative");
             removeButton.innerText = "Remove";
             cell4.appendChild(removeButton);
         }
