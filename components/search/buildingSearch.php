@@ -1,25 +1,49 @@
 <?php
-	//Making the database connection
-	include_once("./backend/db_connector.php");
+	//Check to see if the user is signed in and has access to this information.
+    if(!isset($_SESSION['user'])) {
+        echo("Please sign in to view this content.");
+        exit();
+    }
+    else if($_SESSION['user_type'] == 'viewer') {
+        echo("<br>You do not have permission access to this information.");
+        exit();
+    }
+    else {
+        //Making the database connection
+        include_once("./backend/db_connector.php");
 
-	//Edit Section 
-	//If submit button is pressed.
-	if (isset($_POST['editBuilding'])) {	
-		$bID = $_POST['edit-bid'];
-		$building_name = $_POST['edit-building-name'];
-		$building_abbreviation = $_POST['edit-building-abbreviation'];
-		
-		//SQL Update Statement for buildingSearch form
-		$sql = "UPDATE `buildings`
-			SET `building_name` = '$building_name', 
-				`building_abbreviation` = '$building_abbreviation'
-			WHERE BID=$bID";
-		
-		if ($dbconn->query($sql) === TRUE) {
-			echo "Building edited successfully";
+		//Edit Section 
+		//If submit button is pressed.
+		if (isset($_POST['editBuilding'])) {	
+			$bID = $_POST['edit-bid'];
+			$building_name = $_POST['edit-building-name'];
+			$building_abbreviation = $_POST['edit-building-abbreviation'];
+			
+			//SQL Update Statement for buildingSearch form
+			$sql = "UPDATE `buildings`
+				SET `building_name` = '$building_name', 
+					`building_abbreviation` = '$building_abbreviation'
+				WHERE BID=$bID";
+			
+			if ($dbconn->query($sql) === TRUE) {
+				echo "Building edited successfully";
+			}
+			else {
+				echo "Error: " . $sql . "<br>" . $dbconn->error;
+			}
 		}
-		else {
-			echo "Error: " . $sql . "<br>" . $dbconn->error;
+		else if(isset($_POST['removeBuilding'])) {
+			//Removing the building only works when it's not associated with anything else.
+			//A future version might allow different types of deletes where references are either saved or removed.
+			$BID = $_POST['buildingID'];
+            $sql = "DELETE FROM `buildings` WHERE `BID` = $BID";
+			
+			if ($dbconn->query($sql) === TRUE) {
+                echo "<br>Building removed successfully.";
+            } 
+            else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+            }
 		}
 	}
 ?>
@@ -59,7 +83,7 @@
 			<td><?php echo $bname; ?></td>
 			<td><?php echo $babrv; ?></td>
 			<td><button type="button" onclick="displayModal(<?php echo ++$rowNum ?>, 'buildingTable')">View</button></td>
-			<td><button type="button" onclick="displayModal2()">Delete</button></td>
+			<td><button type="button" onclick="displayModal2(<?php echo $bid; ?>)">Delete</button></td>
 		</tr>
 		<?php 
 				}
@@ -107,15 +131,16 @@
 </div>
 
 <div id="myModal2" class="modal">
-
 	<div class="modal-content">
       <span class="close" onclick="closeModal()">×</span>
 	  <div class="modal-text" id="modal2-text">
-      <h2>Delete</h2>
-    
-      <p>Are you sure you want to delete?</p>
-	  <button type="button">Yes, delete</button>
-	  <button type="button" onclick="closeModal()">No, do not delete</button>
+		<h2>Delete</h2>
+		<p>Are you sure you want to delete?</p>
+		<form action="./search.php?searchType=building" method="POST">
+			<input type="hidden" name="buildingID" id="buildingID">
+			<button type="submit" name="removeBuilding">Yes, delete</button>
+			<button type="button" onclick="closeModal()">No, do not delete</button>
+		</form>
 	  </div>
   </div>
 
@@ -141,9 +166,9 @@
 		document.getElementById('edit-building-abbreviation').value = editRow.cells[2].innerText;
 	}
 	//Display Delete Modal
-	function displayModal2(){
+	function displayModal2(buildingID){
 		modal2.style.display = "block";
-	
+        document.getElementById("buildingID").value = buildingID;
 	}
 
 	// Only give the user the option to save changes if changes are made.

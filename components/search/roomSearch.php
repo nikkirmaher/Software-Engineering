@@ -1,33 +1,55 @@
 <?php
-	//Making the database connection
-	include_once("./backend/db_connector.php");
+	//Check to see if the user is signed in and has access to this information.
+	if(!isset($_SESSION['user'])) {
+		echo("Please sign in to view this content.");
+		exit();
+	}
+	else if($_SESSION['user_type'] == 'viewer') {
+		echo("<br>You do not have permission access to this information.");
+		exit();
+	}
+	else {
+		//Making the database connection
+		include_once("./backend/db_connector.php");
 
-	//Edit Section
-	//If submit button is pressed.
-	if (isset($_POST['editRoom'])) {		
-		$rID = $_POST['edit-rid'];
-		$building = $_POST['edit-bid'];
-		$room_num = $_POST['edit-room-number'];
-		$short_name = $_POST['edit-short-name'];
-		$is_required = $_POST['edit-required'];
-		$is_exclusive = $_POST['edit-exclusive'];
-		$max_seats = $_POST['edit-max-seats'];
-		
-		//SQL Update Statement for roomSearch form
-		$sql = "UPDATE `rooms` 
-			SET `BID` = $building, 
-				`room_num` = '$room_num', 
-				`short_name` = '$short_name', 
-				`is_required` = '$is_required',
-				`is_exclusive` = '$is_exclusive',
-				`max_seats` = '$max_seats'
-			WHERE `RID`='$rID'";
+		//Edit Section
+		//If submit button is pressed.
+		if (isset($_POST['editRoom'])) {		
+			$rID = $_POST['edit-rid'];
+			$building = $_POST['edit-bid'];
+			$room_num = $_POST['edit-room-number'];
+			$short_name = $_POST['edit-short-name'];
+			$is_required = $_POST['edit-required'];
+			$is_exclusive = $_POST['edit-exclusive'];
+			$max_seats = $_POST['edit-max-seats'];
+			
+			//SQL Update Statement for roomSearch form
+			$sql = "UPDATE `rooms` 
+				SET `BID` = $building, 
+					`room_num` = '$room_num', 
+					`short_name` = '$short_name', 
+					`is_required` = '$is_required',
+					`is_exclusive` = '$is_exclusive',
+					`max_seats` = '$max_seats'
+				WHERE `RID`='$rID'";
 
-		if ($dbconn->query($sql) === TRUE) {
-			echo "Room edited successfully";
+			if ($dbconn->query($sql) === TRUE) {
+				echo "Room edited successfully";
+			}
+			else {
+				echo "Error: " . $sql . "<br>" . $dbconn->error;
+			}
 		}
-		else {
-			echo "Error: " . $sql . "<br>" . $dbconn->error;
+		else if(isset($_POST['removeRoom'])) {
+			$RID = $_POST['roomID'];
+            $sql = "DELETE FROM `rooms` WHERE `RID` = $RID";
+			
+			if ($dbconn->query($sql) === TRUE) {
+                echo "<br>Room removed successfully.";
+            } 
+            else {
+                echo "Error: " . $sql . "<br>" . $dbconn->error;
+            }
 		}
 	}
 ?>
@@ -80,8 +102,8 @@
 		<td><?php echo $required; ?></td>
 		<td><?php echo $exclusive; ?></td>
 		<td><?php echo $maxseats; ?></td>
-		<td><button type="button" onclick="displayModal(<?php echo ++$rowNum ?>, 'roomTable')">View</button></td>
-		<td><button type="button" onclick="displayModal2()">Delete</button></td>
+		<td><button type="button" onclick="displayModal(<?php echo ++$rowNum; ?>, 'roomTable')">View</button></td>
+		<td><button type="button" onclick="displayModal2(<?php echo $rid; ?>)">Delete</button></td>
 	</tr>
 	<?php 
 			}
@@ -174,17 +196,19 @@
 </div>
 
 <div id="myModal2" class="modal">
-
 	<div class="modal-content">
-      <span class="close" onclick="closeModal()">×</span>
-	  <div class="modal-text" id="modal2-text">
-      <h2>Delete</h2>
-    
-      <p>Are you sure you want to delete?</p>
-	  <button type="button">Yes, delete</button>
-	  <button type="button" onclick="closeModal()">No, do not delete</button>
-	  </div>
-  </div>
+		<span class="close" onclick="closeModal()">×</span>
+		<div class="modal-text" id="modal2-text">
+			<h2>Delete</h2>
+			
+			<p>Are you sure you want to delete?</p>
+			<form action="./search.php?searchType=room" method="POST">
+				<input type="hidden" name="roomID" id="roomID">
+				<button type="submit" name="removeRoom">Yes, delete</button>
+				<button type="button" onclick="closeModal()">No, do not delete</button>
+			</form>
+		</div>
+  	</div>
 
 </div>	
 
@@ -236,9 +260,10 @@
 	}
 	
 	//Display Delete Modal
-	function displayModal2()
+	function displayModal2(roomID)
 	{
 		modal2.style.display = "block";
+        document.getElementById("roomID").value = roomID;
 	}
 
 	// When the user clicks on <span> (x), close the modal

@@ -5,7 +5,7 @@
     {  
       $building = $_POST['select-building'];
       $room_num = $_POST['room-number'];
-      $short_name = $_POST['select-building'] . $_POST['room-number'];
+      $short_name = $building . $room_num;
       $is_required = $_POST['is_req'];
       $is_exclusive = $_POST['is_exclusive'];
       $max_seats = $_POST['Max_seats'];
